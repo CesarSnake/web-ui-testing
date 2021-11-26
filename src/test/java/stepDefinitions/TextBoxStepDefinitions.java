@@ -10,6 +10,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class TextBoxStepDefinitions {
     Scenario scenario;
@@ -17,7 +18,7 @@ public class TextBoxStepDefinitions {
 
     @Before
     public void before(Scenario scenario) {
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(new ChromeOptions().setExperimentalOption("useAutomationExtension", false));
         this.scenario = scenario;
     }
 
