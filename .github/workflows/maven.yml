@@ -23,11 +23,11 @@ jobs:
         distribution: 'adopt'
         cache: maven
     
-    - name: Setup Chrome
-      uses: browser-actions/setup-chrome@latest
-      with:
-        chrome-version: '96.0.4664.45'
-    
+#    - name: Setup Chrome
+#      uses: browser-actions/setup-chrome@latest
+#      with:
+#        chrome-version: '96.0.4664.45'
+#
     - name: Setup ChromeDriver
       uses: nanasess/setup-chromedriver@master
       with:
