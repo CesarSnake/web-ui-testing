@@ -17,7 +17,6 @@ public class TextBoxStepDefinitions {
 
     @Before
     public void before(Scenario scenario) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ubisoft\\Downloads\\chromedriver.exe");
         driver = new ChromeDriver();
         this.scenario = scenario;
     }
