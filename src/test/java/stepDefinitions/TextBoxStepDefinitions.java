@@ -19,9 +19,7 @@ public class TextBoxStepDefinitions {
     @Before
     public void before(Scenario scenario) {
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-
+        chromeOptions.setBinary("/opt/hostedtoolcache/chromium/latest/x64/chrome");
         driver = new ChromeDriver(chromeOptions);
         this.scenario = scenario;
     }
