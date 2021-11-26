@@ -25,8 +25,8 @@ jobs:
     
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@latest
-    #  with:
-    #    chrome-version: '96.0.4664.45'
+      with:
+        chrome-version: stable
 
     - name: Setup ChromeDriver
       uses: nanasess/setup-chromedriver@master
