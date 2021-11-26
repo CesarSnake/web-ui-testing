@@ -22,19 +22,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-    
-    - name: Setup Chrome
-      uses: browser-actions/setup-chrome@latest
-      with:
-        chrome-version: latest
 
-    - name: Setup ChromeDriver
-      uses: nanasess/setup-chromedriver@master
-    #  with:
-    #   chromedriver-version: '96.0.4664.45'
-    
     - name: Clean with Maven
       run: mvn -B clean --file pom.xml
-    
+
     - name: Test with Maven
       run: mvn -B test --file pom.xml

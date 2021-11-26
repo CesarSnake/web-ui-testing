@@ -5,6 +5,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,15 +19,19 @@ public class TextBoxStepDefinitions {
 
     @Before
     public void before(Scenario scenario) {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("/opt/hostedtoolcache/chromium/latest/x64/chrome");
-        driver = new ChromeDriver(chromeOptions);
         this.scenario = scenario;
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
     }
 
-    @Given("I go to Text Box webpage")
-    public void iGoToTextBoxWebpage() {
-        driver.get("https://demoqa.com/text-box");
+    @Given("I go to Text Box webpage {string}")
+    public void iGoToTextBoxWebpage(String webPage) {
+        driver.get(webPage);
     }
 
     @Then("I fill {string} text box element with text {string}")
