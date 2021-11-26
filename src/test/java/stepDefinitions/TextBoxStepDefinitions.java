@@ -18,7 +18,11 @@ public class TextBoxStepDefinitions {
 
     @Before
     public void before(Scenario scenario) {
-        driver = new ChromeDriver(new ChromeOptions().setExperimentalOption("useAutomationExtension", false));
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+
+        driver = new ChromeDriver(chromeOptions);
         this.scenario = scenario;
     }
 
