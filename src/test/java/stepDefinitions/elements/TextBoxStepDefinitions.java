@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.elements;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -26,56 +26,56 @@ public class TextBoxStepDefinitions {
         driver.get(webPage);
     }
 
-    @Then("I fill {string} text box element with text {string}")
-    public void iFillTextBoxElementWithText(String textBoxId, String text) {
+    @Then("I fill {string} text box with text {string}")
+    public void iFillTextBoxWithText(String textBoxId, String text) {
         driver.findElement(By.id(textBoxId))
             .sendKeys(text);
     }
 
-    @And("I check {string} text box element is displayed as {string}")
-    public void iCheckTextBoxElementIsDisplayedAs(String textBoxId, String classCss) {
+    @And("I check {string} text box is displayed as {string}")
+    public void iCheckTextBoxIsDisplayedAs(String textBoxId, String classCss) {
         WebElement webElement = driver.findElement(By.id(textBoxId));
         String classAttribute = webElement.getAttribute("class");
         Assertions.assertTrue(classAttribute.contains(classCss));
     }
 
-    @And("I click {string} button")
-    public void iClickButton(String buttonId) {
+    @And("I click text box page {string} button")
+    public void iClickTextBoxPageButton(String buttonId) {
         driver.findElement(By.id(buttonId))
             .click();
     }
 
     @And("I check {string} text box element is displayed as error")
-    public void iCheckTextBoxElementIsDisplayedAsError(String textBoxId) {
+    public void iCheckTextBoxIsDisplayedAsError(String textBoxId) {
         WebElement element = driver.findElement(By.id(textBoxId));
         Assertions.assertTrue(element.getAttribute("class").contains("field-error"));
 
     }
 
-    @And("I clean {string} text box element")
-    public void iCleanTextBoxElement(String textBoxId) {
+    @And("I clean {string} text box")
+    public void iCleanTextBox(String textBoxId) {
         driver.findElement(By.id(textBoxId))
             .clear();
     }
 
-    @And("I take a screenshot with fileName {string}")
-    public void iTakeAScreenshotWithFileName(String fileName) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", fileName);
-    }
-
-    @And("I close the webpage")
-    public void iCloseTheWebpage() {
-        driver.close();
-    }
-
-    @And("I should see a {string} box with the following text:")
-    public void iShouldSeeABoxWithTheFollowingText(String textBoxId, Map<String, String> mapValues) {
+    @And("I should see a {string} box with the following text box results test:")
+    public void iShouldSeeABoxWithTheFollowingTextBoxResultsTest(String textBoxId, Map<String, String> mapValues) {
         WebElement webElement = driver.findElement(By.id(textBoxId));
 
         for (Map.Entry<String, String> entry: mapValues.entrySet()) {
             WebElement outputElement = webElement.findElement(By.id(entry.getKey()));
             Assertions.assertTrue(outputElement.getText().contains(entry.getValue()));
         }
+    }
+
+    @And("I take a text box page screenshot with fileName {string}")
+    public void iTakeATextBoxPageScreenshotWithFileName(String fileName) {
+        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", fileName);
+    }
+
+    @And("I close the Text Box webpage")
+    public void iCloseTheTextBoxWebpage()  {
+        driver.close();
     }
 }
