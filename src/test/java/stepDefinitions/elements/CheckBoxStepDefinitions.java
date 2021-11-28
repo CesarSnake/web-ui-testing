@@ -102,8 +102,8 @@ public class CheckBoxStepDefinitions {
         }
     }
 
-    @Then("I take a screenshot with fileName {string}")
-    public void iTakeAScreenshotWithFileName(String fileName) {
+    @Then("I take a check box page screenshot with fileName {string}")
+    public void iTakeACheckBoxPageScreenshotWithFileName(String fileName) {
         byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshot, "image/png", fileName);
     }
