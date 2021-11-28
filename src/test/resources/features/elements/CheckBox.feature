@@ -1,19 +1,22 @@
 Feature: Test check box element of a webpage
   Scenario: Check Box
     Given I go to the Check Box webpage "https://demoqa.com/checkbox"
-    Then I click the button "Expand all"
+    Then I check all check boxes are collapsed
+    Then I click the button "rct-option-expand-all"
+    And I check all check boxes are expanded
     And I check all check boxes are unselected
+    And I take a screenshot with fileName "checkBoxBegin"
     Then I click the check box "tree-node-notes"
     And I check the check box "tree-node-notes" is "rct-icon-check"
     And I check the check box "tree-node-desktop" is "rct-icon-half-check"
     And I check the check box "tree-node-home" is "rct-icon-half-check"
-    And I check that the display result contains:
-      | commands |
-    Then I click the check box "tree-node-notes"
-    And I check the check box "tree-node-notes" is "rct-icon-check"
+    And I check that the result box contains:
+      | notes |
+    Then I click the check box "tree-node-commands"
+    And I check the check box "tree-node-commands" is "rct-icon-check"
     And I check the check box "tree-node-desktop" is "rct-icon-check"
     And I check the check box "tree-node-home" is "rct-icon-half-check"
-    And I check that the display result contains:
+    And I check that the result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -24,7 +27,7 @@ Feature: Test check box element of a webpage
     And I check the check box "tree-node-veu" is "rct-icon-check"
     And I check the check box "tree-node-documents" is "rct-icon-half-check"
     And I check the check box "tree-node-home" is "rct-icon-half-check"
-    And I check that the display result contains:
+    And I check that the result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -40,7 +43,7 @@ Feature: Test check box element of a webpage
     And I check the check box "tree-node-general" is "rct-icon-check"
     And I check the check box "tree-node-documents" is "rct-icon-check"
     And I check the check box "tree-node-home" is "rct-icon-half-check"
-    And I check that the display result contains:
+    And I check that the result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -62,6 +65,7 @@ Feature: Test check box element of a webpage
     And I check the check box "tree-node-excelFile" is "rct-icon-check"
     And I check the check box "tree-node-downloads" is "rct-icon-check"
     And I check the check box "tree-node-home" is "rct-icon-check"
+    And I check that the result box contains:
       | home      |
       | desktop   |
       | notes     |
@@ -79,7 +83,7 @@ Feature: Test check box element of a webpage
       | downloads |
       | wordFile  |
       | excelFile |
-    Then I take a screenshot with fileName "CheckBox"
+    Then I take a screenshot with fileName "checkBoxEnd"
     Then I click the check box "tree-node-home"
     And I check all check boxes are unselected
     And I close the CheckBox webpage
