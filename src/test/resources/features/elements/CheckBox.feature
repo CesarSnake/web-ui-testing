@@ -5,7 +5,7 @@ Feature: Test check box element of a webpage
     Then I click the button "rct-option-expand-all"
     And I check all check boxes are expanded
     And I check all check boxes are unselected
-    And I take a screenshot with fileName "checkBoxBegin"
+    And I take a screenshot with fileName "checkBoxStart"
     Then I click the check box "tree-node-notes"
     And I check the check box "tree-node-notes" is "rct-icon-check"
     And I check the check box "tree-node-desktop" is "rct-icon-half-check"

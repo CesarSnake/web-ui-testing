@@ -26,6 +26,12 @@ public class TextBoxStepDefinitions {
         driver.get(webPage);
     }
 
+    @Then("I check {string} text box is empty")
+    public void iCheckTextBoxIsEmpty(String textBoxId) {
+        WebElement textElement = driver.findElement(By.id(textBoxId));
+        Assertions.assertTrue(textElement.getText().isEmpty());
+    }
+
     @Then("I fill {string} text box with text {string}")
     public void iFillTextBoxWithText(String textBoxId, String text) {
         driver.findElement(By.id(textBoxId))
@@ -49,7 +55,6 @@ public class TextBoxStepDefinitions {
     public void iCheckTextBoxIsDisplayedAsError(String textBoxId) {
         WebElement element = driver.findElement(By.id(textBoxId));
         Assertions.assertTrue(element.getAttribute("class").contains("field-error"));
-
     }
 
     @And("I clean {string} text box")
