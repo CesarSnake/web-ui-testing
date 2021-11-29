@@ -75,8 +75,7 @@ public class TextBoxStepDefinitions {
 
     @And("I take a text box page screenshot with fileName {string}")
     public void iTakeATextBoxPageScreenshotWithFileName(String fileName) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", fileName);
+        TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
     @And("I close the Text Box webpage")

@@ -64,8 +64,9 @@ public class WebTableStepDefinitions {
 
     @Then("I use the search Typing {string}")
     public void iUseTheSearchTyping(String typedSearch) {
-        driver.findElement(By.id("searchBox"))
-            .sendKeys(typedSearch);
+        WebElement searchElement = driver.findElement(By.id("searchBox"));
+        searchElement.clear();
+        searchElement.sendKeys(typedSearch);
     }
 
     @Then("I press the web table button {string}")
@@ -96,9 +97,11 @@ public class WebTableStepDefinitions {
 
     @And("I fill the registration form typing on the element {string} the value {string}")
     public void iFillTheRegistrationFormTypingOnTheElementTheValue(String inputId, String value) {
-        driver.findElement(By.id("userForm"))
-            .findElement(By.id(inputId))
-            .sendKeys(value);
+        WebElement inputElement = driver.findElement(By.id("userForm"))
+            .findElement(By.id(inputId));
+
+        inputElement.clear();
+        inputElement.sendKeys(value);
     }
 
     @And("I check the edit registration form element {string} is {string}")

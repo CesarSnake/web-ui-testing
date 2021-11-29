@@ -45,8 +45,7 @@ public class RadioButtonStepDefinitions {
 
     @And("I take a radio button screenshot with the name {string}")
     public void iTakeARadioButtonScreenshotWithTheName(String fileName) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", fileName);
+        TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
     @And("I close the Radio button webpage")

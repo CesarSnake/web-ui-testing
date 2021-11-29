@@ -70,20 +70,20 @@ Feature: Test web table element of a webpage
     And I check the edit registration form element "age" is "45"
     And I check the edit registration form element "salary" is "12000"
     And I check the edit registration form element "department" is "Compliance"
-    And I take a web table page screenshot with fileName "webTableRegistrationFormError"
+    And I take a web table page screenshot with fileName "webTableRegistrationFormEditStart"
     And I fill the registration form typing on the element "firstName" the value "Edited First Name"
     And I fill the registration form typing on the element "lastName" the value "Edited Last Name"
-    And I fill the registration form typing on the element "userEmail" the value "editted@test.com"
+    And I fill the registration form typing on the element "userEmail" the value "edited@test.com"
     And I fill the registration form typing on the element "age" the value "99"
     And I fill the registration form typing on the element "salary" the value "9999"
     And I fill the registration form typing on the element "department" the value "edited"
-    And I take a web table page screenshot with fileName "webTableRegistrationFormEdited"
+    And I take a web table page screenshot with fileName "webTableRegistrationFormEditEnd"
     And I press the web table button "submit"
     And I check web table contains the elements:
       | Cierra            | Vega             | 39 | cierra@example.com | 10000 | Insurance |
       | Edited First Name | Edited Last Name | 99 | edited@test.com    | 9999  | edited    |
       | Kierra            | Gentry           | 29 | kierra@example.com | 2000  | Legal     |
-    And I take a web table page screenshot with fileName "webTableAddedElement"
+    And I take a web table page screenshot with fileName "webTableEditedElement"
     And I close the Web Table webpage
 
   Scenario: Deleting Elements Web table
@@ -107,10 +107,12 @@ Feature: Test web table element of a webpage
     And I check web table display "5" rows
     Then I change the select to option "20" rows
     And I check web table display "20" rows
+    And I take a web table page screenshot with fileName "webTableSelectRow20"
     Then I change the select to option "25" rows
     And I check web table display "25" rows
     Then I change the select to option "50" rows
     And I check web table display "50" rows
+    And I take a web table page screenshot with fileName "webTableSelectRow50"
     Then I change the select to option "100" rows
     And I check web table display "100" rows
     And I close the Web Table webpage

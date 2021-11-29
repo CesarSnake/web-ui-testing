@@ -104,8 +104,7 @@ public class CheckBoxStepDefinitions {
 
     @Then("I take a check box page screenshot with fileName {string}")
     public void iTakeACheckBoxPageScreenshotWithFileName(String fileName) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", fileName);
+        TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
     @And("I close the CheckBox webpage")
