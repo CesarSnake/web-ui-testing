@@ -105,6 +105,7 @@ Feature: Test web table element of a webpage
     And I check web table display "10" rows
     Then I change the select to option "5" rows
     And I check web table display "5" rows
+    And I take a web table page screenshot with fileName "webTableSelectRow5"
     Then I change the select to option "20" rows
     And I check web table display "20" rows
     And I take a web table page screenshot with fileName "webTableSelectRow20"
@@ -112,7 +113,6 @@ Feature: Test web table element of a webpage
     And I check web table display "25" rows
     Then I change the select to option "50" rows
     And I check web table display "50" rows
-    And I take a web table page screenshot with fileName "webTableSelectRow50"
     Then I change the select to option "100" rows
     And I check web table display "100" rows
     And I close the Web Table webpage
