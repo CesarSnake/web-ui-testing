@@ -1,5 +1,6 @@
 package stepDefinitions.elements;
 
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -13,6 +14,7 @@ import utils.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class LinksStepDefinitions {
     Scenario scenario;
@@ -24,15 +26,23 @@ public class LinksStepDefinitions {
         driver = TestUtils.GetChromeDriver();
     }
 
+    @After
+    public void after() {
+        driver.quit();
+    }
+
     @Given("I go to Links web page {string}")
     public void iGoToLinksWebPage(String webpage) {
         driver.get(webpage);
     }
 
     @Then("I click the link {string}")
-    public void iClickTheLink(String linkId) {
+    public void iClickTheLink(String linkId) throws InterruptedException {
         driver.findElement(By.id(linkId))
             .click();
+
+        // Wait to load the webpage
+        TimeUnit.SECONDS.sleep(1);
     }
 
     @And("I check the web page {string} has opened in a new tab")

@@ -1,5 +1,6 @@
 package stepDefinitions.elements;
 
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -22,6 +23,11 @@ public class ButtonsStepDefinitions {
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
+    }
+
+    @After
+    public void after() {
+        driver.quit();
     }
 
     @Given("I go to Buttons web page {string}")
