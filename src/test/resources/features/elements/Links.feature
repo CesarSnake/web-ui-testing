@@ -31,5 +31,4 @@ Feature: Test Links element of a webpage
     Then I click the link "invalid-url"
     And I check the response was with status "404" and status text "Not Found"
     And I take a Links page screenshot with fileName "LinksNotFound"
-    And I take a Links page screenshot with fileName "LinksEnd"
     And I close the Links webpage
