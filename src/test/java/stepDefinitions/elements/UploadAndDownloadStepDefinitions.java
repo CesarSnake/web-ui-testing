@@ -45,7 +45,7 @@ public class UploadAndDownloadStepDefinitions {
             .map(Path::toFile)
             .forEach(File::delete);
 
-        Files.delete(downloadPath);
+        Files.deleteIfExists(downloadPath); 
     }
 
     @Given("I go to Upload and Download webpage {string}")
