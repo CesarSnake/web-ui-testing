@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.HashMap;
+
 
 public class TestUtils {
     private static boolean isChromeDriverInstalled = false;
@@ -19,8 +21,26 @@ public class TestUtils {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
-        options.addArguments("--window-size=1280,1080");
+        options.addArguments("--window-size=1920,1080");
         
+        return new ChromeDriver(options);
+    }
+
+    public static WebDriver GetChromeDriver(String downloadDirectoryPath) {
+        InstallChromeDriver();
+
+        // it uses the chrome driver with a custom download directory path provided
+        HashMap<String, Object> prefs = new HashMap<>();
+        prefs.put("profile.default_content_settings.popups", 0);
+        prefs.put("download.default_directory", downloadDirectoryPath);
+
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("prefs", prefs);
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
+
         return new ChromeDriver(options);
     }
 

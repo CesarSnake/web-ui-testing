@@ -13,7 +13,7 @@ import utils.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BrokenLinksAndImages {
+public class BrokenLinksAndImagesStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
