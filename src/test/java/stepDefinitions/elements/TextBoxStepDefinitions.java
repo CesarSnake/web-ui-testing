@@ -6,23 +6,24 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import utils.TestUtils;
 
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TextBoxStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before
+    @Before("@TextBox")
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After
+    @After("@TextBox")
     public void after() {
         driver.quit();
     }
@@ -35,7 +36,7 @@ public class TextBoxStepDefinitions {
     @Then("I check {string} text box is empty")
     public void iCheckTextBoxIsEmpty(String textBoxId) {
         WebElement textElement = driver.findElement(By.id(textBoxId));
-        Assertions.assertTrue(textElement.getText().isEmpty());
+        assertTrue(textElement.getText().isEmpty());
     }
 
     @Then("I fill {string} text box with text {string}")
@@ -48,7 +49,7 @@ public class TextBoxStepDefinitions {
     public void iCheckTextBoxIsDisplayedAs(String textBoxId, String classCss) {
         WebElement webElement = driver.findElement(By.id(textBoxId));
         String classAttribute = webElement.getAttribute("class");
-        Assertions.assertTrue(classAttribute.contains(classCss));
+        assertTrue(classAttribute.contains(classCss));
     }
 
     @And("I click text box page {string} button")
@@ -60,7 +61,7 @@ public class TextBoxStepDefinitions {
     @And("I check {string} text box element is displayed as error")
     public void iCheckTextBoxIsDisplayedAsError(String textBoxId) {
         WebElement element = driver.findElement(By.id(textBoxId));
-        Assertions.assertTrue(element.getAttribute("class").contains("field-error"));
+        assertTrue(element.getAttribute("class").contains("field-error"));
     }
 
     @And("I clean {string} text box")
@@ -75,7 +76,7 @@ public class TextBoxStepDefinitions {
 
         for (Map.Entry<String, String> entry: mapValues.entrySet()) {
             WebElement outputElement = webElement.findElement(By.id(entry.getKey()));
-            Assertions.assertTrue(outputElement.getText().contains(entry.getValue()));
+            assertTrue(outputElement.getText().contains(entry.getValue()));
         }
     }
 

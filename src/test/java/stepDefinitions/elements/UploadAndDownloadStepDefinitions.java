@@ -6,6 +6,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +25,7 @@ public class UploadAndDownloadStepDefinitions {
     WebDriver driver;
     Path downloadPath;
 
-    @Before
+    @Before("@UploadDownload")
     public void before(Scenario scenario) throws IOException {
         this.scenario = scenario;
 
@@ -35,7 +36,7 @@ public class UploadAndDownloadStepDefinitions {
         driver = TestUtils.GetChromeDriver(downloadPath.toString());
     }
 
-    @After
+    @After("@UploadDownload")
     public void after() throws IOException {
         driver.quit();
 
@@ -52,7 +53,7 @@ public class UploadAndDownloadStepDefinitions {
         driver.get(webpage);
     }
 
-    @Then("I click the upload-download webpage {string} button")
+    @When("I click the upload-download webpage {string} button")
     public void iClickTheUploadDownloadWebpageButton(String buttonId) {
         driver.findElement(By.id(buttonId))
             .click();
@@ -69,7 +70,7 @@ public class UploadAndDownloadStepDefinitions {
         TestUtils.Wait(seconds);
     }
 
-    @Then("I upload a file using the upload-download input {string}")
+    @When("I upload a file using the upload-download input {string}")
     public void iUploadAFileUsingTheUploadDownloadInput(String inputId) throws IOException {
         // create a random file
         Path filePath = Paths.get(downloadPath.toString(), "testFile.txt");

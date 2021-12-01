@@ -7,7 +7,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.junit.jupiter.api.Assertions;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,17 +16,19 @@ import utils.TestUtils;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class WebTableStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before
+    @Before("@WebTable")
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After
+    @After("@WebTable")
     public void after() {
         driver.quit();
     }
@@ -55,50 +57,50 @@ public class WebTableStepDefinitions {
                     continue;
                 }
 
-                Assertions.assertEquals(rows.get(i).get(j), cellValue);
+                assertEquals(rows.get(i).get(j), cellValue);
             }
         }
     }
 
-    @And("I check web table display {string} rows")
+    @Then("I check web table display {string} rows")
     public void iCheckWebTableDisplayRows(String rowsNumber) {
         WebElement tableElement = driver.findElement(By.className("rt-tbody"));
         List<WebElement> tableRowElements = tableElement.findElements(By.className("rt-tr"));
 
-        Assertions.assertEquals(Integer.valueOf(rowsNumber), tableRowElements.size());
+        assertEquals(Integer.valueOf(rowsNumber), tableRowElements.size());
     }
 
-    @Then("I use the search Typing {string}")
+    @When("I use the search Typing {string}")
     public void iUseTheSearchTyping(String typedSearch) {
         WebElement searchElement = driver.findElement(By.id("searchBox"));
         searchElement.clear();
         searchElement.sendKeys(typedSearch);
     }
 
-    @Then("I press the web table button {string}")
+    @When("I press the web table button {string}")
     public void iPressTheWebTableButton(String buttonId) {
         driver.findElement(By.id(buttonId))
             .click();
     }
 
-    @And("I check the registration form element {string} is {string}")
+    @Then("I check the registration form element {string} is {string}")
     public void iCheckTheRegistrationFormElementIs(String inputId, String value) {
         String displayedValue = driver.findElement(By.id("userForm"))
             .findElement(By.id(inputId)).getText();
 
-        Assertions.assertEquals(value, displayedValue);
+        assertEquals(value, displayedValue);
     }
 
-    @And("I check the registration form has not errors")
+    @Then("I check the registration form has not errors")
     public void iCheckTheRegistrationFormHasNotErrors() {
         WebElement userFormElement = driver.findElement(By.id("userForm"));
-        Assertions.assertEquals("", userFormElement.getAttribute("class"));
+        assertEquals("", userFormElement.getAttribute("class"));
     }
 
-    @And("I check the registration form has errors")
+    @Then("I check the registration form has errors")
     public void iCheckTheRegistrationFormHasErrors() {
         WebElement userFormElement = driver.findElement(By.id("userForm"));
-        Assertions.assertEquals("was-validated", userFormElement.getAttribute("class"));
+        assertEquals("was-validated", userFormElement.getAttribute("class"));
     }
 
     @And("I fill the registration form typing on the element {string} the value {string}")
@@ -116,7 +118,7 @@ public class WebTableStepDefinitions {
             .findElement(By.id(inputId))
             .getAttribute("value");
 
-        Assertions.assertEquals(value, displayedValue);
+        assertEquals(value, displayedValue);
     }
 
     @Then("I change the select to option {string} rows")

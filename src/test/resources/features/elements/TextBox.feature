@@ -1,3 +1,4 @@
+@TextBox
 Feature: Test text box element of a webPage
 
   Scenario: Text Box

@@ -19,13 +19,13 @@ public class DynamicPropertiesStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before
+    @Before("@DynamicProperties")
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After
+    @After("@DynamicProperties")
     public void after() {
         driver.quit();
     }

@@ -6,7 +6,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.junit.jupiter.api.Assertions;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,17 +15,19 @@ import utils.TestUtils;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ButtonsStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before
+    @Before("@Buttons")
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After
+    @After("@Buttons")
     public void after() {
         driver.quit();
     }
@@ -35,7 +37,7 @@ public class ButtonsStepDefinitions {
         driver.get(webpage);
     }
 
-    @Then("I do double click on the button {string}")
+    @When("I do double click on the button {string}")
     public void iDoDoubleClickOnTheButton(String buttonId) {
         WebElement buttonElement = driver.findElement(By.id(buttonId));
         Actions action = new Actions(driver);
@@ -44,13 +46,13 @@ public class ButtonsStepDefinitions {
             .perform();
     }
 
-    @And("I check double click button has clicked using double click")
+    @Then("I check double click button has clicked using double click")
     public void iCheckDoubleClickButtonHasClickedUsingDoubleClick() {
         WebElement doubleClickResult = driver.findElement(By.id("doubleClickMessage"));
-        Assertions.assertEquals("You have done a double click", doubleClickResult.getText());
+        assertEquals("You have done a double click", doubleClickResult.getText());
     }
 
-    @Then("I do right click on the button {string}")
+    @When("I do right click on the button {string}")
     public void iDoRightClickOnTheButton(String buttonId) {
         WebElement buttonElement = driver.findElement(By.id(buttonId));
         Actions action = new Actions(driver);
@@ -59,13 +61,13 @@ public class ButtonsStepDefinitions {
             .perform();
     }
 
-    @And("I check right click button has clicked using right click")
+    @Then("I check right click button has clicked using right click")
     public void iCheckRightClickButtonHasClickedUsingRightClick() {
         WebElement rightClickResult = driver.findElement(By.id("rightClickMessage"));
-        Assertions.assertEquals("You have done a right click", rightClickResult.getText());
+        assertEquals("You have done a right click", rightClickResult.getText());
     }
 
-    @Then("I do a regular click on the dynamic button")
+    @When("I do a regular click on the dynamic button")
     public void iDoARegularClickOnTheDynamicButton() {
         List<WebElement> buttonsList = driver.findElements(By.xpath("//button[contains(@type, 'button')]"));
         WebElement dynamicButton = null;
@@ -81,17 +83,17 @@ public class ButtonsStepDefinitions {
             dynamicButton = button;
         }
 
-        Assertions.assertNotNull(dynamicButton);
+        assertNotNull(dynamicButton);
         dynamicButton.click();
     }
 
-    @And("I check dynamic button has been clicked")
+    @Then("I check dynamic button has been clicked")
     public void iCheckDynamicButtonHasBeenClicked() {
         WebElement rightClickResult = driver.findElement(By.id("dynamicClickMessage"));
-        Assertions.assertEquals("You have done a dynamic click", rightClickResult.getText());
+        assertEquals("You have done a dynamic click", rightClickResult.getText());
     }
 
-    @And("I take a buttons page screenshot with fileName {string}")
+    @Then("I take a buttons page screenshot with fileName {string}")
     public void iTakeAButtonsPageScreenshotWithFileName(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }

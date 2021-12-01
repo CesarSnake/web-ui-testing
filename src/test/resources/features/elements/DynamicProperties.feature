@@ -1,4 +1,6 @@
+@DynamicProperties
 Feature: Test Dynamic Properties element of a webpage
+
   Scenario: Dynamic Properties
     Given I go to dynamic properties webpage "https://demoqa.com/dynamic-properties"
     Then I take a dynamic properties page screenshot with fileName "DynamicStart"

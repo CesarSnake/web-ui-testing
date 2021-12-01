@@ -14,17 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class TestUtils {
     private static boolean isChromeDriverInstalled = false;
-    
+
     public static WebDriver GetChromeDriver() {
         InstallChromeDriver();
-        
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1920,1080");
-        
-        return new ChromeDriver(options);
+
+        return new ChromeDriver(GetChromeOptions());
     }
 
     public static WebDriver GetChromeDriver(String downloadDirectoryPath) {
@@ -35,12 +29,8 @@ public class TestUtils {
         prefs.put("profile.default_content_settings.popups", 0);
         prefs.put("download.default_directory", downloadDirectoryPath);
 
-        ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = GetChromeOptions();
         options.setExperimentalOption("prefs", prefs);
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1920,1080");
 
         return new ChromeDriver(options);
     }
@@ -56,6 +46,16 @@ public class TestUtils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private static ChromeOptions GetChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
+
+        return options;
     }
 
     private static void InstallChromeDriver() {

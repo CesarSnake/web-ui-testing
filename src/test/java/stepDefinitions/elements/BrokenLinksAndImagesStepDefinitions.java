@@ -6,6 +6,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,13 +18,13 @@ public class BrokenLinksAndImagesStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before
+    @Before("@BrokenLinksAndImages")
     public void before(Scenario scenario) {
         this.scenario = scenario;
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After
+    @After("@BrokenLinksAndImages")
     public void after() {
         driver.quit();
     }
@@ -64,7 +65,7 @@ public class BrokenLinksAndImagesStepDefinitions {
     }
 
 
-    @Then("I click the valid link")
+    @When("I click the valid link")
     public void iClickTheValidLink() {
         // the elements to test are inside a col of the row area
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
@@ -74,13 +75,13 @@ public class BrokenLinksAndImagesStepDefinitions {
         linkElement.click();
     }
 
-
-    @And("I check the web page has changed to {string}")
+    @Then("I check the web page has changed to {string}")
     public void iCheckTheWebPageHasChangedTo(String newWebPage) {
         assertEquals(newWebPage, driver.getCurrentUrl());
+        TestUtils.TakeScreenshot(driver, scenario, "aa");
     }
 
-    @Then("I click the broken link")
+    @When("I click the broken link")
     public void iClickTheBrokenLink() {
         // the elements to test are inside a col of the row area
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
@@ -90,7 +91,7 @@ public class BrokenLinksAndImagesStepDefinitions {
         linkElement.click();
     }
 
-    @And("I take a broken page screenshot with fileName {string}")
+    @Then("I take a broken page screenshot with fileName {string}")
     public void iTakeABrokenPageScreenshotWithFileName(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
