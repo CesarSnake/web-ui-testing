@@ -69,21 +69,12 @@ public class ButtonsStepDefinitions {
 
     @When("I do a regular click on the dynamic button")
     public void iDoARegularClickOnTheDynamicButton() {
-        List<WebElement> buttonsList = driver.findElements(By.xpath("//button[contains(@type, 'button')]"));
-        WebElement dynamicButton = null;
-
-        // search the dynamic button, it has a random id like 'VQSqm'
-        for (WebElement button: buttonsList) {
-            String id = button.getAttribute("id");
-
-            if (id.contains("Btn")) { // button with static id
-               continue;
-            }
-
-            dynamicButton = button;
-        }
-
+        WebElement dynamicButton = driver.findElement(By.xpath("//button[text()='Click Me']"));
         assertNotNull(dynamicButton);
+        assertEquals("button", dynamicButton.getAttribute("type"));
+        assertNotEquals("doubleClickBtn", dynamicButton.getAttribute("id"));
+        assertNotEquals("rightClickBtn", dynamicButton.getAttribute("id"));
+
         dynamicButton.click();
     }
 

@@ -28,7 +28,7 @@ public class RadioButtonStepDefinitions {
     }
 
     @Given("I go to the Radio Button webpage {string}")
-    public void i_go_to_the_radio_button_webpage(String webpage) {
+    public void iGoToTheRadioButtonWebpage(String webpage) {
         driver.get(webpage);
     }
 

@@ -92,8 +92,8 @@ public class DynamicPropertiesStepDefinitions {
         assertEquals("colorChange", buttonColor.getAttribute("id"));
         assertEquals("button", buttonColor.getAttribute("type"));
         assertTrue(buttonColor
-                .getAttribute("class")
-                .contains("text-danger"));
+            .getAttribute("class")
+            .contains("text-danger"));
     }
 
     @Then("I check the dynamic page button with text {string} is displayed")

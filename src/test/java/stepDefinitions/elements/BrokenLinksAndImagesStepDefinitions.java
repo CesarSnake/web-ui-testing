@@ -40,8 +40,9 @@ public class BrokenLinksAndImagesStepDefinitions {
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
 
         // the valid image is the first one
-        WebElement imageElement = workingElement.findElements(By.tagName("img"))
-                .get(0);
+        WebElement imageElement = workingElement
+            .findElements(By.tagName("img"))
+            .get(0);
 
         assertEquals("https://demoqa.com/images/Toolsqa.jpg", imageElement.getAttribute("src"));
         assertEquals(347, imageElement.getSize().width);
@@ -54,7 +55,8 @@ public class BrokenLinksAndImagesStepDefinitions {
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
 
         // the invalid image is the second one
-        WebElement imageElement = workingElement.findElements(By.tagName("img"))
+        WebElement imageElement = workingElement
+            .findElements(By.tagName("img"))
             .get(1);
 
         assertEquals("https://demoqa.com/images/Toolsqa_1.jpg", imageElement.getAttribute("src"));
@@ -64,30 +66,32 @@ public class BrokenLinksAndImagesStepDefinitions {
         assertEquals(16, imageElement.getSize().height);
     }
 
-
     @When("I click the valid link")
     public void iClickTheValidLink() {
         // the elements to test are inside a col of the row area
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
 
         WebElement linkElement = workingElement.findElement(By.linkText("Click Here for Valid Link"));
-        assertEquals("http://demoqa.com/", linkElement.getAttribute("href"));
+        String url = linkElement.getAttribute("href");
+        assertEquals("http://demoqa.com/", url);
+
         linkElement.click();
     }
 
     @Then("I check the web page has changed to {string}")
     public void iCheckTheWebPageHasChangedTo(String newWebPage) {
-        assertEquals(newWebPage, driver.getCurrentUrl());
-        TestUtils.TakeScreenshot(driver, scenario, "aa");
+        String currentUrl = driver.getCurrentUrl();
+        assertEquals(newWebPage, currentUrl);
     }
 
     @When("I click the broken link")
     public void iClickTheBrokenLink() {
         // the elements to test are inside a col of the row area
         WebElement workingElement = driver.findElement(By.className("col-md-6"));
-
         WebElement linkElement = workingElement.findElement(By.linkText("Click Here for Broken Link"));
-        assertEquals("http://the-internet.herokuapp.com/status_codes/500", linkElement.getAttribute("href"));
+        String url = linkElement.getAttribute("href");
+        assertEquals("http://the-internet.herokuapp.com/status_codes/500", url);
+
         linkElement.click();
     }
 
