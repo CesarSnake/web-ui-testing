@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,8 +65,8 @@ public class UploadAndDownloadStepDefinitions {
     }
 
     @And("I wait a {string} seconds")
-    public void iWaitASeconds(String seconds) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(Integer.parseInt(seconds));
+    public void iWaitASeconds(String seconds) {
+        TestUtils.Wait(seconds);
     }
 
     @Then("I upload a file using the upload-download input {string}")

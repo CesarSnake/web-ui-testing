@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 
 public class TestUtils {
@@ -48,7 +49,15 @@ public class TestUtils {
         byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshot, "image/png", fileName);
     }
-    
+
+    public static void Wait(String seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(Integer.parseInt(seconds));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void InstallChromeDriver() {
         // it is only needed to install the ChromeDriver once
         if (isChromeDriverInstalled) {

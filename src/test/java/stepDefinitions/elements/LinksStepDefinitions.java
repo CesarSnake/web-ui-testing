@@ -14,7 +14,6 @@ import utils.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class LinksStepDefinitions {
     Scenario scenario;
@@ -37,12 +36,12 @@ public class LinksStepDefinitions {
     }
 
     @Then("I click the link {string}")
-    public void iClickTheLink(String linkId) throws InterruptedException {
+    public void iClickTheLink(String linkId) {
         driver.findElement(By.id(linkId))
             .click();
 
         // Wait to load the webpage
-        TimeUnit.SECONDS.sleep(1);
+        TestUtils.Wait("1");
     }
 
     @And("I check the web page {string} has opened in a new tab")
