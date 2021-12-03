@@ -89,11 +89,7 @@ public class UploadAndDownloadStepDefinitions {
         WebElement check = driver.findElement(
             By.id("uploadedFilePath"));
 
-        String uploadPathExpected = Paths
-            .get("C:", "fakepath", "testFile.txt")
-            .toString();
-
-        assertEquals(uploadPathExpected, check.getText());
+        assertEquals("C:\\fakepath\\testFile.txt", check.getText());
     }
 
     @And("I take a upload-download page screenshot with fileName {string}")
