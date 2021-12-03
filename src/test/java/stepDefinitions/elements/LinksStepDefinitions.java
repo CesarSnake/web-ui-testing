@@ -14,6 +14,7 @@ import utils.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,14 +33,44 @@ public class LinksStepDefinitions {
         driver.quit();
     }
 
-    @Given("I go to Links web page {string}")
-    public void iGoToLinksWebPage(String webpage) {
-        driver.get(webpage);
+    @Given("I go to Links web page")
+    public void iGoToLinksWebPage() {
+        driver.get("https://demoqa.com/links");
+    }
+
+    @When("I click the link with text {string}")
+    public void iClickTheLinkWithText(String displayedText) {
+        driver.findElement(
+            By.linkText(displayedText))
+            .click();
+    }
+
+    @When("I click the dynamic link that contains {string}")
+    public void iClickTheDynamicLinkThatContains(String partialDisplayedText) {
+        // the dynamic link contains the "partialDisplayedText" but cannot be "partialDisplayedText" itself
+        List<WebElement> linksList = driver.findElements(By.tagName("a"));
+
+        List<WebElement> singleLinkInList = linksList
+            .stream()
+            .filter(webElement -> webElement
+                .getText()
+                .contains(partialDisplayedText))
+            .filter(webElement -> {
+                int linkSize = webElement.getText().length();
+                return linkSize > partialDisplayedText.length();
+            })
+            .collect(Collectors.toList());
+
+        assertEquals(1, singleLinkInList.size());
+        singleLinkInList
+            .get(0)
+            .click();
     }
 
     @When("I click the link {string}")
     public void iClickTheLink(String linkId) {
-        driver.findElement(By.id(linkId))
+        driver.findElement(
+            By.id(linkId))
             .click();
 
         // Wait to load the webpage
@@ -69,11 +100,26 @@ public class LinksStepDefinitions {
 
     @Then("I check the response was with status {string} and status text {string}")
     public void iCheckTheResponseWasWithStatusAndStatusText(String status, String statusText) {
-        WebElement response = driver.findElement(By.id("linkResponse"));
-        List<WebElement> responseResult = response.findElements(By.tagName("b"));
+        WebElement linkResponse = driver.findElement(
+            By.id("linkResponse"));
 
-        assertEquals(status, responseResult.get(0).getText());
-        assertEquals(statusText, responseResult.get(1).getText());
+        /* linkResponse is an element with 2 child elements of type <b>: <p id="linkResponse"></p>
+         * <p id="linkResponse">
+         *   <b>404</b>
+         *   some text
+         *   <b>Not Found</b>
+         * </p>
+         */
+        List<WebElement> responseResult = linkResponse.findElements(
+            By.tagName("b"));
+
+        assertEquals(status, responseResult
+            .get(0)
+            .getText());
+
+        assertEquals(statusText, responseResult
+            .get(1)
+            .getText());
     }
 
     @And("I take a Links page screenshot with fileName {string}")
@@ -81,8 +127,8 @@ public class LinksStepDefinitions {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Links webpage")
-    public void iCloseTheLinksWebpage() {
-        driver.close();
+    @And("I quit the Links webpage")
+    public void iQuitTheLinksWebpage() {
+        driver.quit();
     }
 }
