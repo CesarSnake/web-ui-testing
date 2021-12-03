@@ -7,7 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
-import utils.TestUtils;
+import stepDefinitions.utils.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

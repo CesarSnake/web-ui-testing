@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import utils.TestUtils;
+import stepDefinitions.utils.TestUtils;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import utils.TestUtils;
+import stepDefinitions.utils.TestUtils;
 
 
 import static org.junit.jupiter.api.Assertions.*;

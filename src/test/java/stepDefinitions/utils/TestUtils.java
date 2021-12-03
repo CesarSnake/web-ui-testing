@@ -1,4 +1,4 @@
-package utils;
+package stepDefinitions.utils;
 
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -49,6 +49,7 @@ public class TestUtils {
         }
     }
 
+    // SavedWebDriver
     public static void SaveWebDriver(WebDriver webDriver) {
         savedWebDriver = webDriver;
     }

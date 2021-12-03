@@ -1,4 +1,4 @@
-package stepDefinitions.elements;
+package stepDefinitions;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -10,6 +10,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features/elements")
+//@SelectClasspathResource("features/bookstore")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:target/cucumber/report.html, json:target/cucumber/report.json")
 public class RunCucumberElementsTest {
