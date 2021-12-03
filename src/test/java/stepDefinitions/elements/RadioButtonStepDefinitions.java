@@ -1,6 +1,5 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -19,45 +18,90 @@ public class RadioButtonStepDefinitions {
     @Before("@RadioButton")
     public void before(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    @Before("@RadioButtonChecking or @RadioButtonYes")
+    public void before() {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After("@RadioButton")
-    public void after() {
-        driver.quit();
+    @Given("I go to the RadioButton webpage")
+    public void iGoToTheRadioButtonWebpage() {
+        driver.get("https://demoqa.com/radio-button");
     }
 
-    @Given("I go to the Radio Button webpage {string}")
-    public void iGoToTheRadioButtonWebpage(String webpage) {
-        driver.get(webpage);
-    }
+    @Then("I check the radio button {string} is not selected")
+    public void iCheckTheRadioButtonIsNotSelected(String radioButtonDisplayText) {
+        boolean found = true;
+        try {
+            // the result is not displayed if the radio buttons are not selected
+            WebElement resultContainer = driver.findElement(
+                By.className("mt-3"));
 
-    @When("I click the radio button {string}")
-    public void iClickTheRadioButton(String radioButtonId) {
-        driver.findElement(By.xpath("//*[contains(@for, '" + radioButtonId + "')]"))
-            .click();
-    }
+            // if it is displayed, check if the radio button is unselected
+            found = resultContainer
+                .getText()
+                .contains(radioButtonDisplayText);
 
-    @Then("I check the radio button {string} is selected")
-    public void iCheckTheRadioButtonIsSelected(String radioButton) {
-        WebElement resultElement = driver.findElement(By.className("text-success"));
-        assertEquals(radioButton, resultElement.getText());
+        } catch (NoSuchElementException ignored) {
+            found = false;
+        } finally {
+            assertFalse(found);
+        }
     }
 
     @Then("I check the radio button {string} is disabled")
     public void iCheckTheRadioButtonIsDisabled(String radioButtonId) {
-        WebElement radioButton = driver.findElement(By.id(radioButtonId));
-        String classAttribute = radioButton.getAttribute("class");
-        assertTrue(classAttribute.contains("disabled"));
+        WebElement radioButton = driver.findElement(
+            By.id(radioButtonId));
+
+        String classAttribute = radioButton.getAttribute(
+            "class");
+
+        assertTrue(classAttribute.contains(
+            "disabled"));
     }
 
-    @And("I take a radio button screenshot with the name {string}")
+    @When("I click the radio button {string}")
+    public void iClickTheRadioButton(String radioButtonId) {
+        driver.findElement(
+            By.xpath("//label[@for='" + radioButtonId + "']"))
+            .click();
+    }
+
+    @Then("I check the radio button {string} is selected")
+    public void iCheckTheRadioButtonIsSelected(String radioButtonDisplayText) {
+        WebElement resultContainer = driver.findElement(
+            By.className("mt-3"));
+
+        assertTrue(resultContainer
+            .getText()
+            .contains(radioButtonDisplayText));
+    }
+
+    @And("I take a RadioButton screenshot with the name {string}")
     public void iTakeARadioButtonScreenshotWithTheName(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Radio button webpage")
-    public void iCloseTheRadioButtonWebpage() {
-        driver.close();
+    @And("I let the RadioButton webpage open")
+    public void iLetTheRadioButtonWebpageOpen() {
+        assertNotNull(driver);
+
+        TestUtils.SaveWebDriver(driver);
+        assertNotNull(TestUtils.GetSavedWebDriver());
+    }
+
+    @Given("The previous RadioButton webpage opened")
+    public void thePreviousRadioButtonWebpageOpened() {
+        assertNull(driver);
+
+        driver = TestUtils.GetSavedWebDriver();
+        assertNotNull(driver);
+    }
+
+    @And("I quit the RadioButton webpage")
+    public void iQuitTheRadioButtonWebpage() {
+        driver.quit();
     }
 }
