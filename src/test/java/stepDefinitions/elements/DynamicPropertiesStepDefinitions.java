@@ -1,6 +1,5 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -25,11 +24,6 @@ public class DynamicPropertiesStepDefinitions {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After("@DynamicProperties")
-    public void after() {
-        driver.quit();
-    }
-
     @Given("I go to dynamic properties webpage {string}")
     public void iGoToDynamicPropertiesWebpage(String webpage) {
         driver.get(webpage);
@@ -37,7 +31,8 @@ public class DynamicPropertiesStepDefinitions {
 
     @Then("I check the dynamic page displays button named {string}")
     public void iCheckTheDynamicPageDisplaysButtonNamed(String displayButtonName) {
-        WebElement buttonDisabled = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
+        WebElement buttonDisabled = driver.findElement(
+            By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertNotNull(buttonDisabled);
         assertEquals("button", buttonDisabled.getAttribute("type"));
@@ -45,8 +40,9 @@ public class DynamicPropertiesStepDefinitions {
 
     @Then("I check the dynamic page button with text {string} is disabled")
     public void iCheckTheDynamicPageButtonWithTextIsDisabled(String displayButtonName) {
-        WebElement buttonDisabled = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
-        assertEquals("enableAfter", buttonDisabled.getAttribute("id"));
+        WebElement buttonDisabled = driver.findElement(
+            By.xpath("//button[text()='" + displayButtonName + "']"));
+
         assertEquals("button", buttonDisabled.getAttribute("type"));
         assertNotNull(buttonDisabled.getAttribute("disabled"));
     }
@@ -54,6 +50,7 @@ public class DynamicPropertiesStepDefinitions {
     @Then("I check the dynamic page button with text {string} has not color")
     public void iCheckTheDynamicPageButtonWithTextHasNotColor(String displayButtonName) {
         WebElement buttonColor = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
+
         assertEquals("colorChange", buttonColor.getAttribute("id"));
         assertEquals("button", buttonColor.getAttribute("type"));
         assertFalse(buttonColor
@@ -68,9 +65,9 @@ public class DynamicPropertiesStepDefinitions {
             driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
         } catch (NoSuchElementException ignored) {
             found = false;
+        } finally {
+            assertFalse(found);
         }
-
-        assertFalse(found);
     }
 
     @When("I wait a {string} seconds in dynamic page")
@@ -80,16 +77,18 @@ public class DynamicPropertiesStepDefinitions {
 
     @Then("I check the dynamic page button with text {string} is enabled")
     public void iCheckTheDynamicPageButtonWithTextIsEnabled(String displayButtonName) {
-        WebElement buttonEnabled = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
-        assertEquals("enableAfter", buttonEnabled.getAttribute("id"));
+        WebElement buttonEnabled = driver.findElement(
+            By.xpath("//button[text()='" + displayButtonName + "']"));
+
         assertEquals("button", buttonEnabled.getAttribute("type"));
         assertNull(buttonEnabled.getAttribute("disabled"));
     }
 
     @Then("I check the dynamic page button with text {string} has changed the color to red")
     public void iCheckTheDynamicPageButtonWithTextHasChangedTheColorToRed(String displayButtonName) {
-        WebElement buttonColor = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
-        assertEquals("colorChange", buttonColor.getAttribute("id"));
+        WebElement buttonColor = driver.findElement(
+            By.xpath("//button[text()='" + displayButtonName + "']"));
+
         assertEquals("button", buttonColor.getAttribute("type"));
         assertTrue(buttonColor
             .getAttribute("class")
@@ -98,7 +97,9 @@ public class DynamicPropertiesStepDefinitions {
 
     @Then("I check the dynamic page button with text {string} is displayed")
     public void iCheckTheDynamicPageButtonWithTextIsDisplayed(String displayButtonName) {
-        WebElement buttonVisible = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
+        WebElement buttonVisible = driver.findElement(
+            By.xpath("//button[text()='" + displayButtonName + "']"));
+
         assertEquals("button", buttonVisible.getAttribute("type"));
         assertNotNull(buttonVisible);
     }
@@ -108,8 +109,8 @@ public class DynamicPropertiesStepDefinitions {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Dynamic Properties webpage")
+    @And("I quit the Dynamic Properties webpage")
     public void iCloseTheDynamicPropertiesWebpage() {
-        driver.close();
+        driver.quit();
     }
 }
