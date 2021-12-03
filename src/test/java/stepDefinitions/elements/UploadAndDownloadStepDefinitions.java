@@ -23,45 +23,45 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UploadAndDownloadStepDefinitions {
     Scenario scenario;
     WebDriver driver;
-    Path downloadPath;
+    Path workingDirectoryPath;
 
-    @Before("@UploadDownload")
+    @Before("@UploadAndDownload")
     public void before(Scenario scenario) throws IOException {
         this.scenario = scenario;
+        workingDirectoryPath = Paths.get(System.getProperty("user.dir"), "target", "downloads");
 
         // Creates download directory
-        downloadPath = Paths.get(System.getProperty("user.dir"), "target", "downloads");
-        Files.createDirectory(downloadPath);
+        Files.createDirectory(workingDirectoryPath);
 
-        driver = TestUtils.GetChromeDriver(downloadPath.toString());
+        // use chrome driver with download folder localized
+        driver = TestUtils.GetChromeDriver(workingDirectoryPath.toString());
     }
 
-    @After("@UploadDownload")
+    @After("@UploadAndDownload")
     public void after() throws IOException {
-        driver.quit();
-
-        // Delete download folder
-        Files.walk(downloadPath)
+        // Clean download folder
+        Files.walk(workingDirectoryPath)
             .map(Path::toFile)
             .forEach(File::delete);
 
-        Files.deleteIfExists(downloadPath); 
+        Files.deleteIfExists(workingDirectoryPath);
     }
 
-    @Given("I go to Upload and Download webpage {string}")
-    public void iGoToUploadAndDownloadWebpage(String webpage) {
-        driver.get(webpage);
+    @Given("I go to Upload and Download webpage")
+    public void iGoToUploadAndDownloadWebpage() {
+        driver.get("https://demoqa.com/upload-download");
     }
 
-    @When("I click the upload-download webpage {string} button")
+    @When("I click the upload-download webpage button {string}")
     public void iClickTheUploadDownloadWebpageButton(String buttonId) {
-        driver.findElement(By.id(buttonId))
+        driver.findElement(
+            By.id(buttonId))
             .click();
     }
 
     @Then("I check it has download the file {string}")
     public void iCheckItHasDownloadTheFile(String fileName) {
-        Path downloadFilePath = Paths.get(downloadPath.toString(), fileName);
+        Path downloadFilePath = Paths.get(workingDirectoryPath.toString(), fileName);
         assertTrue(Files.exists(downloadFilePath));
     }
 
@@ -73,20 +73,27 @@ public class UploadAndDownloadStepDefinitions {
     @When("I upload a file using the upload-download input {string}")
     public void iUploadAFileUsingTheUploadDownloadInput(String inputId) throws IOException {
         // create a random file
-        Path filePath = Paths.get(downloadPath.toString(), "testFile.txt");
+        Path filePath = Paths.get(workingDirectoryPath.toString(), "testFile.txt");
         Files.createFile(filePath);
 
         assertTrue(Files.exists(filePath));
 
         // upload the file
-        driver.findElement(By.id(inputId))
+        driver.findElement(
+            By.id(inputId))
             .sendKeys(filePath.toString());
     }
 
     @Then("I check the file has uploaded")
     public void iCheckTheFileHasUploaded() {
-        WebElement check = driver.findElement(By.id("uploadedFilePath"));
-        assertEquals("C:\\fakepath\\testFile.txt", check.getText());
+        WebElement check = driver.findElement(
+            By.id("uploadedFilePath"));
+
+        String uploadPathExpected = Paths
+            .get("C:", "fakepath", "testFile.txt")
+            .toString();
+
+        assertEquals(uploadPathExpected, check.getText());
     }
 
     @And("I take a upload-download page screenshot with fileName {string}")
@@ -94,8 +101,8 @@ public class UploadAndDownloadStepDefinitions {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Upload-Download webpage")
-    public void iCloseTheUploadDownloadWebpage() {
-        driver.close();
+    @And("I quit the Upload-Download webpage")
+    public void iQuitTheUploadDownloadWebpage() {
+        driver.quit();
     }
 }
