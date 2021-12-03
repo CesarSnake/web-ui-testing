@@ -1,6 +1,5 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -24,57 +23,73 @@ public class BrokenLinksAndImagesStepDefinitions {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After("@BrokenLinksAndImages")
-    public void after() {
-        driver.quit();
-    }
-
-    @Given("I go to the broken links and images web page {string}")
-    public void iGoToTheBrokenLinksAndImagesWebPage(String webpage) {
-        driver.get(webpage);
+    @Given("I go to the Broken Links - Images webpage")
+    public void iGoToTheBrokenLinksImagesWebpage() {
+        driver.get("https://demoqa.com/broken");
     }
 
     @Then("I check valid image is displayed")
     public void iCheckValidImageIsDisplayed() {
         // the elements to test are inside a col of the row area
-        WebElement workingElement = driver.findElement(By.className("col-md-6"));
+        WebElement workingElement = driver.findElement(
+            By.className("col-md-6"));
 
         // the valid image is the first one
         WebElement imageElement = workingElement
-            .findElements(By.tagName("img"))
+            .findElements(
+                By.tagName("img"))
             .get(0);
 
-        assertEquals("https://demoqa.com/images/Toolsqa.jpg", imageElement.getAttribute("src"));
-        assertEquals(347, imageElement.getSize().width);
-        assertEquals(100, imageElement.getSize().height);
+        assertEquals("https://demoqa.com/images/Toolsqa.jpg", imageElement
+            .getAttribute("src"));
+
+        assertEquals(347, imageElement
+            .getSize()
+            .width);
+
+        assertEquals(100, imageElement
+            .getSize()
+            .height);
     }
 
     @Then("I check a broken image is not displayed")
     public void iCheckABrokenImageIsNotDisplayed() {
         // the elements to test are inside a col of the row area
-        WebElement workingElement = driver.findElement(By.className("col-md-6"));
+        WebElement workingElement = driver.findElement(
+            By.className("col-md-6"));
 
         // the invalid image is the second one
         WebElement imageElement = workingElement
-            .findElements(By.tagName("img"))
+            .findElements(
+                By.tagName("img"))
             .get(1);
 
-        assertEquals("https://demoqa.com/images/Toolsqa_1.jpg", imageElement.getAttribute("src"));
+        assertEquals("https://demoqa.com/images/Toolsqa_1.jpg", imageElement
+            .getAttribute("src"));
 
         // when an image is not displayed, the engine shows a broken symbol of 16x16
-        assertEquals(16, imageElement.getSize().width);
-        assertEquals(16, imageElement.getSize().height);
+        assertEquals(16, imageElement
+            .getSize()
+            .width);
+
+        assertEquals(16, imageElement
+            .getSize()
+            .height);
     }
 
     @When("I click the valid link")
     public void iClickTheValidLink() {
         // the elements to test are inside a col of the row area
-        WebElement workingElement = driver.findElement(By.className("col-md-6"));
+        WebElement workingElement = driver.findElement(
+            By.className("col-md-6"));
 
-        WebElement linkElement = workingElement.findElement(By.linkText("Click Here for Valid Link"));
-        String url = linkElement.getAttribute("href");
+        WebElement linkElement = workingElement.findElement(
+            By.linkText("Click Here for Valid Link"));
+
+        String url = linkElement.getAttribute(
+            "href");
+
         assertEquals("http://demoqa.com/", url);
-
         linkElement.click();
     }
 
@@ -87,11 +102,14 @@ public class BrokenLinksAndImagesStepDefinitions {
     @When("I click the broken link")
     public void iClickTheBrokenLink() {
         // the elements to test are inside a col of the row area
-        WebElement workingElement = driver.findElement(By.className("col-md-6"));
-        WebElement linkElement = workingElement.findElement(By.linkText("Click Here for Broken Link"));
+        WebElement workingElement = driver.findElement(
+            By.className("col-md-6"));
+
+        WebElement linkElement = workingElement.findElement(
+            By.linkText("Click Here for Broken Link"));
+
         String url = linkElement.getAttribute("href");
         assertEquals("http://the-internet.herokuapp.com/status_codes/500", url);
-
         linkElement.click();
     }
 
@@ -100,8 +118,8 @@ public class BrokenLinksAndImagesStepDefinitions {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Broken webpage")
-    public void iCloseTheBrokenWebpage() {
-        driver.close();
+    @And("I quit the Broken webpage")
+    public void iQuitTheBrokenWebpage() {
+        driver.quit();
     }
 }
