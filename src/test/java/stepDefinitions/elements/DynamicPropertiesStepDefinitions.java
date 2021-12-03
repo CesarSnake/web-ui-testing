@@ -24,9 +24,9 @@ public class DynamicPropertiesStepDefinitions {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @Given("I go to dynamic properties webpage {string}")
-    public void iGoToDynamicPropertiesWebpage(String webpage) {
-        driver.get(webpage);
+    @Given("I go to dynamic properties webpage")
+    public void iGoToDynamicPropertiesWebpage() {
+        driver.get("https://demoqa.com/dynamic-properties");
     }
 
     @Then("I check the dynamic page displays button named {string}")
