@@ -1,11 +1,11 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.*;
 import utils.TestUtils;
 
@@ -17,76 +17,121 @@ public class TextBoxStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
+
     @Before("@TextBox")
     public void before(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    @Before("@TextBoxInvalidMail or @TextBoxValidMail")
+    public void before() {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After("@TextBox")
-    public void after() {
-        driver.quit();
+    @Given("I go to the TextBox webpage")
+    public void iGoToTheTextBoxWebpage() {
+        driver.get("https://demoqa.com/text-box");
     }
 
-    @Given("I go to Text Box webpage {string}")
-    public void iGoToTextBoxWebpage(String webPage) {
-        driver.get(webPage);
+    @Then("I check the TextBox {string} is empty")
+    public void iCheckTheTextBoxIsEmpty(String textBoxId) {
+        WebElement textBox = driver.findElement(
+            By.id(textBoxId));
+
+        assertTrue(textBox
+            .getText()
+            .isEmpty());
     }
 
-    @Then("I check {string} text box is empty")
-    public void iCheckTextBoxIsEmpty(String textBoxId) {
-        WebElement textElement = driver.findElement(By.id(textBoxId));
-        assertTrue(textElement.getText().isEmpty());
+    @Then("I check the TextBox {string} is not empty")
+    public void iCheckTheTextBoxIsNotEmpty(String textBoxId) {
+        WebElement textBox = driver.findElement(
+            By.id(textBoxId));
+
+        assertEquals("", textBox
+            .getText());
     }
 
-    @Then("I fill {string} text box with text {string}")
-    public void iFillTextBoxWithText(String textBoxId, String text) {
-        driver.findElement(By.id(textBoxId))
-            .sendKeys(text);
-    }
-
-    @And("I check {string} text box is displayed as {string}")
-    public void iCheckTextBoxIsDisplayedAs(String textBoxId, String classCss) {
-        WebElement webElement = driver.findElement(By.id(textBoxId));
-        String classAttribute = webElement.getAttribute("class");
-        assertTrue(classAttribute.contains(classCss));
-    }
-
-    @And("I click text box page {string} button")
-    public void iClickTextBoxPageButton(String buttonId) {
-        driver.findElement(By.id(buttonId))
-            .click();
-    }
-
-    @And("I check {string} text box element is displayed as error")
-    public void iCheckTextBoxIsDisplayedAsError(String textBoxId) {
-        WebElement element = driver.findElement(By.id(textBoxId));
-        assertTrue(element.getAttribute("class").contains("field-error"));
-    }
-
-    @And("I clean {string} text box")
-    public void iCleanTextBox(String textBoxId) {
-        driver.findElement(By.id(textBoxId))
-            .clear();
-    }
-
-    @And("I should see a {string} box with the following text box results test:")
-    public void iShouldSeeABoxWithTheFollowingTextBoxResultsTest(String textBoxId, Map<String, String> mapValues) {
-        WebElement webElement = driver.findElement(By.id(textBoxId));
-
-        for (Map.Entry<String, String> entry: mapValues.entrySet()) {
-            WebElement outputElement = webElement.findElement(By.id(entry.getKey()));
-            assertTrue(outputElement.getText().contains(entry.getValue()));
-        }
-    }
-
-    @And("I take a text box page screenshot with fileName {string}")
-    public void iTakeATextBoxPageScreenshotWithFileName(String fileName) {
+    @And("I take a TextBox screenshot with fileName {string}")
+    public void iTakeATextBoxScreenshotWithFileName(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the Text Box webpage")
-    public void iCloseTheTextBoxWebpage()  {
-        driver.close();
+    @Then("I check the TextBox {string} is displayed as {string}")
+    public void iCheckTheTextBoxIsDisplayedAs(String textBoxId, String classCss) {
+        WebElement textBox = driver.findElement(
+            By.id(textBoxId));
+
+        String classAttribute = textBox.getAttribute(
+            "class");
+
+        assertTrue(classAttribute.contains(classCss));
+    }
+
+    @Then("I fill the TextBox {string} with text {string}")
+    public void iFillTheTextBoxWithText(String textBoxId, String text) {
+        driver.findElement(
+            By.id(textBoxId))
+                .sendKeys(text);
+    }
+
+    @Then("I clean the TexBox {string}")
+    public void iCleanTheTexBox(String textBoxId) {
+        driver.findElement(
+            By.id(textBoxId))
+            .clear();
+    }
+
+    @Then("I should not see the TextBox results box empty")
+    public void iShouldNotSeeTheTextBoxResultsBoxEmpty() {
+        WebElement boxResults = driver.findElement(
+            By.id("output"));
+
+        int resultElements = boxResults
+            .findElements(By.tagName("p"))
+            .size();
+
+        assertEquals(0, resultElements);
+    }
+
+    @Then("I should see the TextBox results box with:")
+    public void iShouldSeeTheTextBoxResultsBoxWith(Map<String, String> mapValues) {
+        WebElement boxResults = driver.findElement(By.id("output"));
+
+        for (Map.Entry<String, String> entry: mapValues.entrySet()) {
+            WebElement outputElement = boxResults.findElement(
+                By.id(entry
+                    .getKey()));
+
+            assertTrue(outputElement
+                .getText()
+                .contains(entry
+                    .getValue()));
+        }
+    }
+
+    @When("I click the TextBox button Submit")
+    public void iClickTheTextBoxButtonSubmit() {
+        driver.findElement(By.id("submit"))
+            .click();
+    }
+
+    @And("I quit the TextBox webpage")
+    public void iQuitTheTextBoxWebpage() {
+        driver.quit();
+    }
+
+    @And("I let the TextBox webpage open")
+    public void iLetTheTextBoxWebpageOpen() {
+        TestUtils.SaveWebDriver(driver);
+        assertNotNull(TestUtils.GetSavedWebDriver());
+    }
+
+    @Given("The previous TextBox webpage opened")
+    public void thePreviousTextBoxWebpageOpened() {
+        assertNull(driver);
+
+        driver = TestUtils.GetSavedWebDriver();
+        assertNotNull(driver);
     }
 }
