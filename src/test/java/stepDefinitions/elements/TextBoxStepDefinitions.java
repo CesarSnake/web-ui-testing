@@ -118,13 +118,10 @@ public class TextBoxStepDefinitions {
             .click();
     }
 
-    @And("I quit the TextBox webpage")
-    public void iQuitTheTextBoxWebpage() {
-        driver.quit();
-    }
-
     @And("I let the TextBox webpage open")
     public void iLetTheTextBoxWebpageOpen() {
+        assertNotNull(driver);
+
         TestUtils.SaveWebDriver(driver);
         assertNotNull(TestUtils.GetSavedWebDriver());
     }
@@ -135,5 +132,10 @@ public class TextBoxStepDefinitions {
 
         driver = TestUtils.GetSavedWebDriver();
         assertNotNull(driver);
+    }
+
+    @And("I quit the TextBox webpage")
+    public void iQuitTheTextBoxWebpage() {
+        driver.quit();
     }
 }

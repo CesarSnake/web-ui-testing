@@ -1,6 +1,5 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
@@ -20,103 +19,187 @@ public class CheckBoxStepDefinitions {
     Scenario scenario;
     WebDriver driver;
 
-    @Before("@Checkbox")
+    @Before("@CheckBox")
     public void before(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    @Before("@CheckingCheckBox")
+    public void before() {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @After("@Checkbox")
-    public void after() {
-        driver.quit();
+    @Given("I go to the CheckBox webpage")
+    public void iGoToTheCheckBoxWebpage() {
+        driver.get("https://demoqa.com/checkbox");
     }
 
-    @Given("I go to the Check Box webpage {string}")
-    public void iGoToTheCheckBoxWebpage(String webPage) {
-        driver.get(webPage);
+    @Then("I check all checkboxes are collapsed")
+    public void iCheckAllCheckboxesAreCollapsed() {
+        WebElement nodeParent = driver.findElement(
+            By.className("rct-node-parent"));
+
+        String classAttributes = nodeParent.getAttribute(
+            "class");
+
+        assertTrue(classAttributes.contains(
+            "rct-node-collapsed"));
     }
 
-    @Then("I check all check boxes are collapsed")
-    public void iCheckAllCheckBoxesAreCollapsed() {
-        WebElement nodeParent = driver.findElement(By.className("rct-node-parent"));
-        String classAttributes = nodeParent.getAttribute("class");
-
-        assertTrue(classAttributes.contains("rct-node-collapsed"));
-    }
-
-    @When("I click the button {string}")
-    public void iClickTheButton(String buttonClassName) {
-        driver.findElement(By.className(buttonClassName))
+    @When("I click the checkBox button Expand all")
+    public void iClickTheCheckBoxButtonExpandAll() {
+        driver.findElement(
+            By.className("rct-option-expand-all"))
             .click();
     }
 
-    @Then("I check all check boxes are expanded")
+    @When("I click the checkBox button Collapse all")
+    public void iClickTheCheckBoxButtonCollapseAll() {
+        driver.findElement(
+            By.className("rct-option-collapse-all"))
+            .click();
+    }
+
+    @Then("I check all checkBoxes are expanded")
     public void iCheckAllCheckBoxesAreExpanded() {
-        List<WebElement> checkBoxesElements = driver.findElements(By.xpath("//*[starts-with(@for, 'tree-node-')]"));
+        WebElement nodeParent = driver.findElement(
+            By.className("rct-node-parent"));
+
+        String classAttributes = nodeParent.getAttribute(
+            "class");
+
+        assertTrue(classAttributes.contains(
+            "rct-node-expanded"));
+    }
+
+    @Then("I check all checkBoxes are unselected")
+    public void iCheckAllCheckBoxesAreUnselected() {
+        // check the list of checkboxes
+        List<WebElement> checkBoxesElements = driver.findElements(
+            By.xpath("//label[starts-with(@for, 'tree-node-')]"));
+
+        // get all the checkboxes
         List<WebElement> checkBoxesStatus = checkBoxesElements
             .stream()
             .map(webElement -> webElement.findElement(By.className("rct-icon")))
             .collect(Collectors.toList());
 
+        // there are a total of 17 checkboxes on the page
+        assertEquals(17, checkBoxesStatus.size());
+
+        // check each checkbox is unchecked
         for (WebElement element: checkBoxesStatus) { // check each of them
-            String classAttributes = element.getAttribute("class");
-            assertTrue(classAttributes.contains("rct-icon-uncheck"));
+            String classAttributes = element.getAttribute(
+                "class");
+
+            assertTrue(classAttributes.contains(
+                "rct-icon-uncheck"));
         }
     }
 
-    @Then("I check all check boxes are unselected")
-    public void iCheckAllCheckBoxesAreUnselected() {
-        WebElement nodeParent = driver.findElement(By.className("rct-node-parent"));
-        String classAttributes = nodeParent.getAttribute("class");
+    @Then("I check all checkBoxes are selected")
+    public void iCheckAllCheckBoxesAreSelected() {
+        // check the list of checkboxes
+        List<WebElement> checkBoxesElements = driver.findElements(
+            By.xpath("//label[starts-with(@for, 'tree-node-')]"));
 
-        assertTrue(classAttributes.contains("rct-node-expanded"));
+        // get all the checkboxes
+        List<WebElement> checkBoxesStatus = checkBoxesElements
+            .stream()
+            .map(webElement -> webElement.findElement(By.className("rct-icon")))
+            .collect(Collectors.toList());
+
+        // there are a total of 17 checkboxes on the page
+        assertEquals(17, checkBoxesStatus.size());
+
+        // check each checkbox is unchecked
+        for (WebElement element: checkBoxesStatus) { // check each of them
+            String classAttributes = element.getAttribute(
+                "class");
+
+            assertTrue(classAttributes.contains(
+                "rct-icon-check"));
+        }
     }
 
-    @When("I click the check box {string}")
+    @When("I click the checkBox {string}")
     public void iClickTheCheckBox(String checkBoxId) {
-        WebElement checkBoxElement = driver.findElement(By.xpath("//*[contains(@for, '" + checkBoxId + "')]"));
-        checkBoxElement.findElement(By.className("rct-checkbox"))
+        WebElement checkBoxElement = driver.findElement(
+            By.xpath("//label[@for='" + checkBoxId + "']"));
+
+        checkBoxElement.findElement(
+            By.className("rct-checkbox"))
             .click();
     }
 
-    @Then("I check the check box {string} is {string}")
-    public void iCheckTheCheckBoxIs(String checkBoxId, String checkBoxClass) {
-        WebElement checkBoxElement = driver.findElement(By.xpath("//*[contains(@for, '" + checkBoxId + "')]"));
-        WebElement checkBox = checkBoxElement.findElement(By.className("rct-icon"));
-        String classAttributes = checkBox.getAttribute("class");
+    @Then("I check the checkBox {string} is {string}")
+    public void iCheckTheCheckBoxIs(String checkBoxId, String cssClass) {
+        WebElement checkBoxElement = driver.findElement(
+            By.xpath("//label[@for='" + checkBoxId + "']"));
 
-        assertTrue(classAttributes.contains(checkBoxClass));
+        WebElement checkBox = checkBoxElement.findElement(
+            By.className("rct-icon"));
+
+        String classAttributes = checkBox.getAttribute(
+            "class");
+
+        assertTrue(classAttributes.contains(
+                cssClass));
     }
 
-    @Then("I check that the result box contains:")
-    public void iCheckThatTheResultBoxContains(List<String> selectedCheckboxes) {
-        WebElement resultElement = driver.findElement(By.id("result"));
-        List<WebElement> resultSelectedElements = resultElement.findElements(By.tagName("span"));
+    @Then("I check that the checkBox result box contains:")
+    public void iCheckThatTheCheckBoxResultBoxContains(List<String> selectedCheckboxes) {
+        // get the result container
+        WebElement resultElement = driver.findElement(
+            By.id("result"));
+
+        // all elements selected are displayed as span -> <span class="text-success">notes</span>
+        List<WebElement> resultSelectedElements = resultElement.findElements(
+            By.tagName("span"));
 
         ArrayList<String> resultSelectedValues = new ArrayList<>();
         for (WebElement webElement : resultSelectedElements) {
-            String text = webElement.getText();
-            resultSelectedValues.add(text);
+            resultSelectedValues.add(webElement
+                .getText());
         }
 
+        // the first element of the container's list is <span>You have selected :</span>
+        // so the size must be equals as the list provided + 1
         assertTrue(resultSelectedValues.contains("You have selected :"));
+        assertEquals(selectedCheckboxes.size() + 1, resultSelectedElements.size());
 
         for (String selected: selectedCheckboxes) {
-            boolean check = resultSelectedValues
+            boolean isElementDisplayed = resultSelectedValues
                 .stream()
                 .anyMatch(selectedValue -> selectedValue.equals(selected));
 
-            assertTrue(check);
+            assertTrue(isElementDisplayed);
         }
     }
 
-    @Then("I take a check box page screenshot with fileName {string}")
-    public void iTakeACheckBoxPageScreenshotWithFileName(String fileName) {
+    @Then("I take a checkBox screenshot with fileName {string}")
+    public void iTakeACheckBoxScreenshotWithFileName(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I close the CheckBox webpage")
-    public void iCloseTheCheckBoxWebpage() {
-        driver.close();
+    @And("I let the CheckBox webpage open")
+    public void iLetTheCheckBoxWebpageOpen() {
+        assertNotNull(driver);
+
+        TestUtils.SaveWebDriver(driver);
+        assertNotNull(TestUtils.GetSavedWebDriver());
+    }
+
+    @Given("The previous CheckBox webpage opened")
+    public void thePreviousCheckBoxWebpageOpened() {
+        assertNull(driver);
+
+        driver = TestUtils.GetSavedWebDriver();
+        assertNotNull(driver);
+    }
+
+    @And("I quit the CheckBox webpage")
+    public void iQuitTheCheckBoxWebpage() {
+        driver.quit();
     }
 }

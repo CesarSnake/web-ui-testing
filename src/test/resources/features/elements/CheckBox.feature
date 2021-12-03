@@ -1,35 +1,47 @@
-@Checkbox
-Feature: Test check box element of a webpage
+@CheckBox
+Feature: Test CheckBox element of a webpage
 
-  Scenario: Check Box
-    Given I go to the Check Box webpage "https://demoqa.com/checkbox"
-    Then I check all check boxes are collapsed
-    When I click the button "rct-option-expand-all"
-    Then I check all check boxes are expanded
-    Then I check all check boxes are unselected
-    Then I take a check box page screenshot with fileName "checkBoxStart"
-    When I click the check box "tree-node-notes"
-    Then I check the check box "tree-node-notes" is "rct-icon-check"
-    Then I check the check box "tree-node-desktop" is "rct-icon-half-check"
-    Then I check the check box "tree-node-home" is "rct-icon-half-check"
-    Then I check that the result box contains:
+  @CheckingCheckBox
+  Scenario: Checking CheckBox
+    Given I go to the CheckBox webpage
+    Then I check all checkboxes are collapsed
+    When I click the checkBox button Expand all
+    Then I check all checkBoxes are expanded
+    When I click the checkBox button Collapse all
+    Then I check all checkboxes are collapsed
+    When I click the checkBox button Expand all
+    Then I check all checkBoxes are unselected
+    Then I take a checkBox screenshot with fileName "checkBoxStart"
+    And I let the CheckBox webpage open
+
+  Scenario: Check Desktop CheckBox group
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-notes"
+    Then I check the checkBox "tree-node-notes" is "rct-icon-check"
+    Then I check the checkBox "tree-node-desktop" is "rct-icon-half-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
       | notes |
-    When I click the check box "tree-node-commands"
-    Then I check the check box "tree-node-commands" is "rct-icon-check"
-    Then I check the check box "tree-node-desktop" is "rct-icon-check"
-    Then I check the check box "tree-node-home" is "rct-icon-half-check"
-    Then I check that the result box contains:
+    When I click the checkBox "tree-node-commands"
+    Then I check the checkBox "tree-node-commands" is "rct-icon-check"
+    Then I check the checkBox "tree-node-desktop" is "rct-icon-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
       | desktop   |
       | notes     |
       | commands  |
-    When I click the check box "tree-node-workspace"
-    Then I check the check box "tree-node-workspace" is "rct-icon-check"
-    Then I check the check box "tree-node-react" is "rct-icon-check"
-    Then I check the check box "tree-node-angular" is "rct-icon-check"
-    Then I check the check box "tree-node-veu" is "rct-icon-check"
-    Then I check the check box "tree-node-documents" is "rct-icon-half-check"
-    Then I check the check box "tree-node-home" is "rct-icon-half-check"
-    Then I check that the result box contains:
+    And I let the CheckBox webpage open
+
+  Scenario: Check Documents workspace CheckBox group
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-workspace"
+    Then I check the checkBox "tree-node-workspace" is "rct-icon-check"
+    Then I check the checkBox "tree-node-react" is "rct-icon-check"
+    Then I check the checkBox "tree-node-angular" is "rct-icon-check"
+    Then I check the checkBox "tree-node-veu" is "rct-icon-check"
+    Then I check the checkBox "tree-node-documents" is "rct-icon-half-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -37,15 +49,19 @@ Feature: Test check box element of a webpage
       | react     |
       | angular   |
       | veu       |
-    When I click the check box "tree-node-office"
-    Then I check the check box "tree-node-office" is "rct-icon-check"
-    Then I check the check box "tree-node-public" is "rct-icon-check"
-    Then I check the check box "tree-node-private" is "rct-icon-check"
-    Then I check the check box "tree-node-classified" is "rct-icon-check"
-    Then I check the check box "tree-node-general" is "rct-icon-check"
-    Then I check the check box "tree-node-documents" is "rct-icon-check"
-    Then I check the check box "tree-node-home" is "rct-icon-half-check"
-    Then I check that the result box contains:
+    And I let the CheckBox webpage open
+
+  Scenario: Check Documents office CheckBox group
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-office"
+    Then I check the checkBox "tree-node-office" is "rct-icon-check"
+    Then I check the checkBox "tree-node-public" is "rct-icon-check"
+    Then I check the checkBox "tree-node-private" is "rct-icon-check"
+    Then I check the checkBox "tree-node-classified" is "rct-icon-check"
+    Then I check the checkBox "tree-node-general" is "rct-icon-check"
+    Then I check the checkBox "tree-node-documents" is "rct-icon-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -59,16 +75,47 @@ Feature: Test check box element of a webpage
       | private   |
       | classified|
       | general   |
-    When I click the check box "tree-node-wordFile"
-    Then I check the check box "tree-node-wordFile" is "rct-icon-check"
-    Then I check the check box "tree-node-downloads" is "rct-icon-half-check"
-    Then I check the check box "tree-node-home" is "rct-icon-half-check"
-    When I click the check box "tree-node-excelFile"
-    Then I check the check box "tree-node-excelFile" is "rct-icon-check"
-    Then I check the check box "tree-node-downloads" is "rct-icon-check"
-    Then I check the check box "tree-node-home" is "rct-icon-check"
-    Then I check that the result box contains:
-      | home      |
+    And I let the CheckBox webpage open
+
+    Scenario: Check Downloads CheckBoxGroup
+      Given The previous CheckBox webpage opened
+      When I click the checkBox "tree-node-wordFile"
+      Then I check the checkBox "tree-node-wordFile" is "rct-icon-check"
+      Then I check the checkBox "tree-node-downloads" is "rct-icon-half-check"
+      Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+      When I click the checkBox "tree-node-excelFile"
+      Then I check the checkBox "tree-node-excelFile" is "rct-icon-check"
+      Then I check the checkBox "tree-node-downloads" is "rct-icon-check"
+      Then I check the checkBox "tree-node-home" is "rct-icon-check"
+      Then I check that the checkBox result box contains:
+        | home      |
+        | desktop   |
+        | notes     |
+        | commands  |
+        | documents |
+        | workspace |
+        | react     |
+        | angular   |
+        | veu       |
+        | office    |
+        | public    |
+        | private   |
+        | classified|
+        | general   |
+        | downloads |
+        | wordFile  |
+        | excelFile |
+      Then I take a checkBox screenshot with fileName "checkBoxEnd"
+      And I let the CheckBox webpage open
+
+  Scenario: Uncheck Download CheckBoxGroup
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-downloads"
+    Then I check the checkBox "tree-node-downloads" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-wordFile" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-excelFile" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
       | desktop   |
       | notes     |
       | commands  |
@@ -82,10 +129,41 @@ Feature: Test check box element of a webpage
       | private   |
       | classified|
       | general   |
-      | downloads |
-      | wordFile  |
-      | excelFile |
-    Then I take a check box page screenshot with fileName "checkBoxEnd"
-    Then I click the check box "tree-node-home"
-    Then I check all check boxes are unselected
-    And I close the CheckBox webpage
+    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDownload"
+    And I let the CheckBox webpage open
+
+  Scenario: Uncheck Documents CheckBoxGroup
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-documents"
+    Then I check the checkBox "tree-node-documents" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-react" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-angular" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-veu" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-office" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-public" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-private" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-classified" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-general" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    Then I check that the checkBox result box contains:
+      | desktop   |
+      | notes     |
+      | commands  |
+    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDocuments"
+    And I let the CheckBox webpage open
+
+  Scenario: Uncheck Desktop CheckBoxGroup
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-desktop"
+    Then I check the checkBox "tree-node-desktop" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-notes" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-commands" is "rct-icon-uncheck"
+    Then I check the checkBox "tree-node-home" is "rct-icon-uncheck"
+    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDesktop"
+    And I let the CheckBox webpage open
+
+  Scenario: Deselect all CheckBoxes
+    Given The previous CheckBox webpage opened
+    Then I click the checkBox "tree-node-home"
+    Then I check all checkBoxes are selected
+    And I quit the CheckBox webpage
