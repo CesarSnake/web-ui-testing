@@ -72,7 +72,7 @@ public class TextBoxStepDefinitions {
     public void iFillTheTextBoxWithText(String textBoxId, String text) {
         driver.findElement(
             By.id(textBoxId))
-                .sendKeys(text);
+            .sendKeys(text);
     }
 
     @Then("I clean the TexBox {string}")
@@ -96,7 +96,8 @@ public class TextBoxStepDefinitions {
 
     @Then("I should see the TextBox results box with:")
     public void iShouldSeeTheTextBoxResultsBoxWith(Map<String, String> mapValues) {
-        WebElement boxResults = driver.findElement(By.id("output"));
+        WebElement boxResults = driver.findElement(
+            By.id("output"));
 
         for (Map.Entry<String, String> entry: mapValues.entrySet()) {
             WebElement outputElement = boxResults.findElement(
@@ -112,7 +113,8 @@ public class TextBoxStepDefinitions {
 
     @When("I click the TextBox button Submit")
     public void iClickTheTextBoxButtonSubmit() {
-        driver.findElement(By.id("submit"))
+        driver.findElement(
+            By.id("submit"))
             .click();
     }
 
