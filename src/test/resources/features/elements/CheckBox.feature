@@ -77,36 +77,36 @@ Feature: Test CheckBox element of a webpage
       | general   |
     And I let the CheckBox webpage open
 
-    Scenario: Check Downloads CheckBoxGroup
-      Given The previous CheckBox webpage opened
-      When I click the checkBox "tree-node-wordFile"
-      Then I check the checkBox "tree-node-wordFile" is "rct-icon-check"
-      Then I check the checkBox "tree-node-downloads" is "rct-icon-half-check"
-      Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
-      When I click the checkBox "tree-node-excelFile"
-      Then I check the checkBox "tree-node-excelFile" is "rct-icon-check"
-      Then I check the checkBox "tree-node-downloads" is "rct-icon-check"
-      Then I check the checkBox "tree-node-home" is "rct-icon-check"
-      Then I check that the checkBox result box contains:
-        | home      |
-        | desktop   |
-        | notes     |
-        | commands  |
-        | documents |
-        | workspace |
-        | react     |
-        | angular   |
-        | veu       |
-        | office    |
-        | public    |
-        | private   |
-        | classified|
-        | general   |
-        | downloads |
-        | wordFile  |
-        | excelFile |
-      Then I take a checkBox screenshot with fileName "checkBoxEnd"
-      And I let the CheckBox webpage open
+  Scenario: Check Downloads CheckBoxGroup
+    Given The previous CheckBox webpage opened
+    When I click the checkBox "tree-node-wordFile"
+    Then I check the checkBox "tree-node-wordFile" is "rct-icon-check"
+    Then I check the checkBox "tree-node-downloads" is "rct-icon-half-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-half-check"
+    When I click the checkBox "tree-node-excelFile"
+    Then I check the checkBox "tree-node-excelFile" is "rct-icon-check"
+    Then I check the checkBox "tree-node-downloads" is "rct-icon-check"
+    Then I check the checkBox "tree-node-home" is "rct-icon-check"
+    Then I check that the checkBox result box contains:
+      | home      |
+      | desktop   |
+      | notes     |
+      | commands  |
+      | documents |
+      | workspace |
+      | react     |
+      | angular   |
+      | veu       |
+      | office    |
+      | public    |
+      | private   |
+      | classified|
+      | general   |
+      | downloads |
+      | wordFile  |
+      | excelFile |
+    Then I take a checkBox screenshot with fileName "checkBoxEnd"
+    And I let the CheckBox webpage open
 
   Scenario: Uncheck Download CheckBoxGroup
     Given The previous CheckBox webpage opened
