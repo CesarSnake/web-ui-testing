@@ -102,7 +102,8 @@ public class CreateUserStepDefinitions {
                 By.xpath("//span[@id='recaptcha-anchor']")))
             .click();
 
-        // as the captcha displays a grid with images to select, let's simulate the user has created using the api
+        // give some seconds to the captcha finishes
+        TestUtils.Wait("5");
     }
 
 
