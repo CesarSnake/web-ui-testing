@@ -9,9 +9,9 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features/elements")
-//@SelectClasspathResource("features/bookstore")
+//@SelectClasspathResource("features/elements")
+@SelectClasspathResource("features/bookstore")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:target/cucumber/report.html, json:target/cucumber/report.json")
-public class RunCucumberElementsTest {
+public class RunCucumberTest {
 }
