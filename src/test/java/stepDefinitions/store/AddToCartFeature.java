@@ -26,13 +26,13 @@ public class AddToCartFeature {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @Given("I go to the store webpage to add items in the cart")
-    public void iGoToTheStoreWebpageToAddItemsInTheCart() {
+    @Given("I go to the store webpage")
+    public void iGoToTheStoreWebpage() {
         driver.get("https://www.saucedemo.com/");
     }
 
-    @Then("I login to the store webpage to add items in the cart")
-    public void iLoginToTheStoreWebpageToAddItemsInTheCart() {
+    @Then("I login to the store webpage")
+    public void iLoginToTheStoreWebpage() {
         driver.findElement(
             By.id("user-name"))
             .sendKeys("standard_user");
@@ -182,13 +182,13 @@ public class AddToCartFeature {
             .click();
     }
 
-    @And("I take a add to cart screenshot with filename {string}")
-    public void iTakeAAddToCartScreenshotWithFilename(String fileName) {
+    @And("I take an add screenshot with filename {string}")
+    public void iTakeAnAddScreenshotWithFilename(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I quit the store webpage to add items in the cart")
-    public void iQuitTheStoreWebpageToAddItemsInTheCart() {
+    @And("I quit the store webpage")
+    public void iQuitTheStoreWebpage() {
         driver.quit();
     }
 }

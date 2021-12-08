@@ -26,13 +26,13 @@ public class SortInventoryStepDefinitions {
         driver = TestUtils.GetChromeDriver();
     }
 
-    @Given("I go to the store webpage to sort inventory")
-    public void iGoToTheStoreWebpageToSortInventory() {
+    @Given("I go to the shop webpage")
+    public void iGoToTheShopWebpage() {
         driver.get("https://www.saucedemo.com/");
     }
 
-    @Then("I login to the store webpage to sort inventory")
-    public void iLoginToTheStoreWebpageToSortInventory() {
+    @Then("I login to the shop webpage")
+    public void iLoginToTheShopWebpage() {
         driver.findElement(
             By.id("user-name"))
             .sendKeys("standard_user");
@@ -76,13 +76,13 @@ public class SortInventoryStepDefinitions {
 
     }
 
-    @And("I take a sort store screenshot with filename {string}")
-    public void iTakeASortStoreScreenshotWithFilename(String fileName) {
+    @And("I take a sort shop screenshot with filename {string}")
+    public void iTakeASortShopScreenshotWithFilename(String fileName) {
         TestUtils.TakeScreenshot(driver, scenario, fileName);
     }
 
-    @And("I quit the sort store webpage")
-    public void iQuitTheSortStoreWebpage() {
+    @And("I quit the shop webpage")
+    public void iQuitTheShopWebpage() {
         driver.quit();
     }
 }
