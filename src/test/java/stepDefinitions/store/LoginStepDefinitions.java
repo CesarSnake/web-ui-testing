@@ -31,7 +31,8 @@ public class LoginStepDefinitions {
 
     @Then("I check the input {string} is empty")
     public void iCheckTheInputIsEmpty(String inputId) {
-        WebElement inputElement = driver.findElement(By.id(inputId));
+        WebElement inputElement = driver.findElement(
+            By.id(inputId));
 
         assertEquals("", inputElement
             .getText());
