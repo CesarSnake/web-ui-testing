@@ -2,54 +2,48 @@ package stepDefinitions.store;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import stepDefinitions.utils.TestUtils;
+import stepDefinitions.utils.TestHelper;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SortInventoryStepDefinitions {
-    Scenario scenario;
-    WebDriver driver;
 
     @Before("@SortStoreInventory")
     public void before(Scenario scenario) {
-        this.scenario = scenario;
-        driver = TestUtils.GetChromeDriver();
+        TestHelper.InitializeAndSetWebDriver();
+        TestHelper.SetScenario(scenario);
     }
 
-    @Given("I go to the shop webpage")
-    public void iGoToTheShopWebpage() {
-        driver.get("https://www.saucedemo.com/");
-    }
-
-    @Then("I login to the shop webpage")
-    public void iLoginToTheShopWebpage() {
-        driver.findElement(
-            By.id("user-name"))
+    @Then("I login in the store webpage")
+    public void iLoginInTheStoreWebpage() {
+        TestHelper.GetWebDriver()
+            .findElement(
+                By.id("user-name"))
             .sendKeys("standard_user");
 
-        driver.findElement(
-            By.id("password"))
+        TestHelper.GetWebDriver()
+            .findElement(
+                By.id("password"))
             .sendKeys("secret_sauce");
 
-        driver.findElement(
-            By.id("login-button"))
+        TestHelper.GetWebDriver()
+            .findElement(
+                By.id("login-button"))
             .click();
     }
 
     @When("I change the sort select to option {string}")
     public void iChangeTheSortSelectToOption(String displayText) {
-        WebElement selectElement = driver.findElement(
-            By.xpath("//select[@data-test='product_sort_container']"));
+        WebElement selectElement = TestHelper.GetWebDriver()
+            .findElement(
+                By.xpath("//select[@data-test='product_sort_container']"));
 
         Select select = new Select(selectElement);
         select.selectByVisibleText(displayText);
@@ -57,8 +51,9 @@ public class SortInventoryStepDefinitions {
 
     @Then("I check the order of the inventory is:")
     public void iCheckTheOrderOfTheInventoryIs(List<String> elements) {
-        WebElement inventoryContainerElement = driver.findElement(
-            By.id("inventory_container"));
+        WebElement inventoryContainerElement = TestHelper.GetWebDriver()
+            .findElement(
+                By.id("inventory_container"));
 
         List<WebElement> inventoryElements = inventoryContainerElement.findElements(
             By.xpath("//div[@class='inventory_item_name']"));
@@ -73,16 +68,5 @@ public class SortInventoryStepDefinitions {
                 inventoryElements.get(i)
                     .getText());
         }
-
-    }
-
-    @And("I take a sort shop screenshot with filename {string}")
-    public void iTakeASortShopScreenshotWithFilename(String fileName) {
-        TestUtils.TakeScreenshot(driver, scenario, fileName);
-    }
-
-    @And("I quit the shop webpage")
-    public void iQuitTheShopWebpage() {
-        driver.quit();
     }
 }
