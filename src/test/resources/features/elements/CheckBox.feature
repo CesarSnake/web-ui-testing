@@ -3,7 +3,7 @@ Feature: Test CheckBox element of a webpage
 
   @CheckingCheckBox
   Scenario: Checking CheckBox
-    Given I go to the CheckBox webpage
+    Given I go to the elements webpage "checkbox"
     Then I check all checkboxes are collapsed
     When I click the checkBox button Expand all
     Then I check all checkBoxes are expanded
@@ -11,11 +11,11 @@ Feature: Test CheckBox element of a webpage
     Then I check all checkboxes are collapsed
     When I click the checkBox button Expand all
     Then I check all checkBoxes are unselected
-    Then I take a checkBox screenshot with fileName "checkBoxStart"
-    And I let the CheckBox webpage open
+    And I take an elements screenshot with fileName "checkBoxStart"
+    And I let the elements webpage open
 
   Scenario: Check Desktop CheckBox group
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-notes"
     Then I check the checkBox "tree-node-notes" is "rct-icon-check"
     Then I check the checkBox "tree-node-desktop" is "rct-icon-half-check"
@@ -30,10 +30,11 @@ Feature: Test CheckBox element of a webpage
       | desktop   |
       | notes     |
       | commands  |
-    And I let the CheckBox webpage open
+    And I take an elements screenshot with fileName "checkBoxDesktopEnd"
+    And I let the elements webpage open
 
   Scenario: Check Documents workspace CheckBox group
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-workspace"
     Then I check the checkBox "tree-node-workspace" is "rct-icon-check"
     Then I check the checkBox "tree-node-react" is "rct-icon-check"
@@ -49,10 +50,11 @@ Feature: Test CheckBox element of a webpage
       | react     |
       | angular   |
       | veu       |
-    And I let the CheckBox webpage open
+    And I take an elements screenshot with fileName "checkBoxWorkspaceEnd"
+    And I let the elements webpage open
 
   Scenario: Check Documents office CheckBox group
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-office"
     Then I check the checkBox "tree-node-office" is "rct-icon-check"
     Then I check the checkBox "tree-node-public" is "rct-icon-check"
@@ -75,10 +77,11 @@ Feature: Test CheckBox element of a webpage
       | private   |
       | classified|
       | general   |
-    And I let the CheckBox webpage open
+    And I take an elements screenshot with fileName "checkBoxOfficeEnd"
+    And I let the elements webpage open
 
   Scenario: Check Downloads CheckBoxGroup
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-wordFile"
     Then I check the checkBox "tree-node-wordFile" is "rct-icon-check"
     Then I check the checkBox "tree-node-downloads" is "rct-icon-half-check"
@@ -105,11 +108,11 @@ Feature: Test CheckBox element of a webpage
       | downloads |
       | wordFile  |
       | excelFile |
-    Then I take a checkBox screenshot with fileName "checkBoxEnd"
-    And I let the CheckBox webpage open
+    Then I take an elements screenshot with fileName "checkBoxEnd"
+    And I let the elements webpage open
 
   Scenario: Uncheck Download CheckBoxGroup
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-downloads"
     Then I check the checkBox "tree-node-downloads" is "rct-icon-uncheck"
     Then I check the checkBox "tree-node-wordFile" is "rct-icon-uncheck"
@@ -129,11 +132,11 @@ Feature: Test CheckBox element of a webpage
       | private   |
       | classified|
       | general   |
-    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDownload"
-    And I let the CheckBox webpage open
+    Then I take an elements screenshot with fileName "checkBoxUnCheckDownload"
+    And I let the elements webpage open
 
   Scenario: Uncheck Documents CheckBoxGroup
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-documents"
     Then I check the checkBox "tree-node-documents" is "rct-icon-uncheck"
     Then I check the checkBox "tree-node-react" is "rct-icon-uncheck"
@@ -149,21 +152,23 @@ Feature: Test CheckBox element of a webpage
       | desktop   |
       | notes     |
       | commands  |
-    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDocuments"
-    And I let the CheckBox webpage open
+    Then I take an elements screenshot with fileName "checkBoxUnCheckDocuments"
+    And I let the elements webpage open
 
   Scenario: Uncheck Desktop CheckBoxGroup
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
     When I click the checkBox "tree-node-desktop"
     Then I check the checkBox "tree-node-desktop" is "rct-icon-uncheck"
     Then I check the checkBox "tree-node-notes" is "rct-icon-uncheck"
     Then I check the checkBox "tree-node-commands" is "rct-icon-uncheck"
     Then I check the checkBox "tree-node-home" is "rct-icon-uncheck"
-    Then I take a checkBox screenshot with fileName "checkBoxUnCheckDesktop"
-    And I let the CheckBox webpage open
+    Then I take an elements screenshot with fileName "checkBoxUnCheckDesktop"
+    And I let the elements webpage open
 
   Scenario: Deselect all CheckBoxes
-    Given The previous CheckBox webpage opened
+    Given The previous elements webpage opened
+    And I take an elements screenshot with fileName "allStart"
     Then I click the checkBox "tree-node-home"
     Then I check all checkBoxes are selected
-    And I quit the CheckBox webpage
+    And I take an elements screenshot with fileName "allEnd"
+    And I quit the elements webpage

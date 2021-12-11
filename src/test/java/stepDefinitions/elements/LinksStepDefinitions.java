@@ -1,10 +1,7 @@
 package stepDefinitions.elements;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
@@ -19,36 +16,29 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LinksStepDefinitions {
-    Scenario scenario;
-    WebDriver driver;
-
     @Before("@Links")
     public void before(Scenario scenario) {
-        this.scenario = scenario;
-        driver = TestUtils.GetChromeDriver();
-    }
-
-    @After("@Links")
-    public void after() {
-        driver.quit();
-    }
-
-    @Given("I go to Links web page")
-    public void iGoToLinksWebPage() {
-        driver.get("https://demoqa.com/links");
+        TestUtils.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
     }
 
     @When("I click the link with text {string}")
     public void iClickTheLinkWithText(String displayedText) {
-        driver.findElement(
-            By.linkText(displayedText))
+        TestUtils.GetWebDriver()
+            .findElement(
+                By.linkText(displayedText))
             .click();
+
+        // Wait a bit to load the webpage
+        TestUtils.Wait("2");
     }
 
     @When("I click the dynamic link that contains {string}")
     public void iClickTheDynamicLinkThatContains(String partialDisplayedText) {
         // the dynamic link contains the "partialDisplayedText" but cannot be "partialDisplayedText" itself
-        List<WebElement> linksList = driver.findElements(By.tagName("a"));
+        List<WebElement> linksList = TestUtils.GetWebDriver()
+            .findElements(
+                By.tagName("a"));
 
         List<WebElement> singleLinkInList = linksList
             .stream()
@@ -69,18 +59,22 @@ public class LinksStepDefinitions {
 
     @When("I click the link {string}")
     public void iClickTheLink(String linkId) {
-        driver.findElement(
-            By.id(linkId))
+        TestUtils.GetWebDriver()
+            .findElement(
+                By.id(linkId))
             .click();
 
-        // Wait to load the webpage
-        TestUtils.Wait("1");
+        // Wait a bit to load the webpage
+        TestUtils.Wait("2");
     }
 
     @Then("I check the web page {string} has opened in a new tab")
     public void iCheckTheWebPageHasOpenedInANewTab(String webUrl) {
+        WebDriver driver = TestUtils.GetWebDriver();
+
         // Get current page
-        String currentPageHandle = driver.getWindowHandle();
+        String currentPageHandle = TestUtils.GetWebDriver()
+            .getWindowHandle();
 
         // Get all Open Tabs
         ArrayList<String> tabHandles = new ArrayList<>(driver.getWindowHandles());
@@ -100,8 +94,9 @@ public class LinksStepDefinitions {
 
     @Then("I check the response was with status {string} and status text {string}")
     public void iCheckTheResponseWasWithStatusAndStatusText(String status, String statusText) {
-        WebElement linkResponse = driver.findElement(
-            By.id("linkResponse"));
+        WebElement linkResponse = TestUtils.GetWebDriver()
+            .findElement(
+                By.id("linkResponse"));
 
         /* linkResponse is an element with 2 child elements of type <b>: <p id="linkResponse"></p>
          * <p id="linkResponse">
@@ -113,22 +108,10 @@ public class LinksStepDefinitions {
         List<WebElement> responseResult = linkResponse.findElements(
             By.tagName("b"));
 
-        assertEquals(status, responseResult
-            .get(0)
+        assertEquals(status, responseResult.get(0)
             .getText());
 
-        assertEquals(statusText, responseResult
-            .get(1)
+        assertEquals(statusText, responseResult.get(1)
             .getText());
-    }
-
-    @And("I take a Links page screenshot with fileName {string}")
-    public void iTakeALinksPageScreenshotWithFileName(String fileName) {
-        TestUtils.TakeScreenshot(driver, scenario, fileName);
-    }
-
-    @And("I quit the Links webpage")
-    public void iQuitTheLinksWebpage() {
-        driver.quit();
     }
 }

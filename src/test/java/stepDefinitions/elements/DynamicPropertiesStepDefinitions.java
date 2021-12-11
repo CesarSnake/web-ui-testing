@@ -2,54 +2,46 @@ package stepDefinitions.elements;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import stepDefinitions.utils.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicPropertiesStepDefinitions {
-    Scenario scenario;
-    WebDriver driver;
-
     @Before("@DynamicProperties")
     public void before(Scenario scenario) {
-        this.scenario = scenario;
-        driver = TestUtils.GetChromeDriver();
+        TestUtils.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
     }
 
-    @Given("I go to dynamic properties webpage")
-    public void iGoToDynamicPropertiesWebpage() {
-        driver.get("https://demoqa.com/dynamic-properties");
-    }
-
-    @Then("I check the dynamic page displays button named {string}")
-    public void iCheckTheDynamicPageDisplaysButtonNamed(String displayButtonName) {
-        WebElement buttonDisabled = driver.findElement(
-            By.xpath("//button[text()='" + displayButtonName + "']"));
+    @Then("I check the button named {string} is displayed")
+    public void iCheckTheButtonNamedIsDisplayed(String displayButtonName) {
+        WebElement buttonDisabled = TestUtils.GetWebDriver()
+            .findElement(
+                By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertNotNull(buttonDisabled);
         assertEquals("button", buttonDisabled.getAttribute("type"));
     }
 
-    @Then("I check the dynamic page button with text {string} is disabled")
-    public void iCheckTheDynamicPageButtonWithTextIsDisabled(String displayButtonName) {
-        WebElement buttonDisabled = driver.findElement(
-            By.xpath("//button[text()='" + displayButtonName + "']"));
+    @Then("I check the button named {string} is disabled")
+    public void iCheckTheButtonNamedIsDisabled(String displayButtonName) {
+        WebElement buttonDisabled = TestUtils.GetWebDriver()
+            .findElement(
+                By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertEquals("button", buttonDisabled.getAttribute("type"));
         assertNotNull(buttonDisabled.getAttribute("disabled"));
     }
 
-    @Then("I check the dynamic page button with text {string} has not color")
-    public void iCheckTheDynamicPageButtonWithTextHasNotColor(String displayButtonName) {
-        WebElement buttonColor = driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
+    @Then("I check the button named {string} has not color")
+    public void iCheckTheButtonNamedHasNotColor(String displayButtonName) {
+        WebElement buttonColor = TestUtils.GetWebDriver()
+            .findElement(
+                By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertEquals("colorChange", buttonColor.getAttribute("id"));
         assertEquals("button", buttonColor.getAttribute("type"));
@@ -58,11 +50,13 @@ public class DynamicPropertiesStepDefinitions {
             .contains("text-danger"));
     }
 
-    @Then("I check the dynamic page button with text {string} is not displayed")
-    public void iCheckTheDynamicPageButtonWithTextIsNotDisplayed(String displayButtonName) {
+    @Then("I check the button named {string} is not displayed")
+    public void iCheckTheButtonNamedIsNotDisplayed(String displayButtonName) {
         boolean found = true;
         try {
-            driver.findElement(By.xpath("//button[text()='" + displayButtonName + "']"));
+            TestUtils.GetWebDriver()
+                .findElement(
+                    By.xpath("//button[text()='" + displayButtonName + "']"));
         } catch (NoSuchElementException ignored) {
             found = false;
         } finally {
@@ -70,47 +64,25 @@ public class DynamicPropertiesStepDefinitions {
         }
     }
 
-    @When("I wait a {string} seconds in dynamic page")
-    public void iWaitASecondsInDynamicPage(String seconds) {
-        TestUtils.Wait(seconds);
-    }
-
-    @Then("I check the dynamic page button with text {string} is enabled")
-    public void iCheckTheDynamicPageButtonWithTextIsEnabled(String displayButtonName) {
-        WebElement buttonEnabled = driver.findElement(
-            By.xpath("//button[text()='" + displayButtonName + "']"));
+    @Then("I check the button named {string} is enabled")
+    public void iCheckTheButtonNamedIsEnabled(String displayButtonName) {
+        WebElement buttonEnabled = TestUtils.GetWebDriver()
+            .findElement(
+                By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertEquals("button", buttonEnabled.getAttribute("type"));
         assertNull(buttonEnabled.getAttribute("disabled"));
     }
 
-    @Then("I check the dynamic page button with text {string} has changed the color to red")
-    public void iCheckTheDynamicPageButtonWithTextHasChangedTheColorToRed(String displayButtonName) {
-        WebElement buttonColor = driver.findElement(
-            By.xpath("//button[text()='" + displayButtonName + "']"));
+    @Then("I check the button named {string} has changed the color to red")
+    public void iCheckTheButtonNamedHasChangedTheColorToRed(String displayButtonName) {
+        WebElement buttonColor = TestUtils.GetWebDriver()
+            .findElement(
+                By.xpath("//button[text()='" + displayButtonName + "']"));
 
         assertEquals("button", buttonColor.getAttribute("type"));
         assertTrue(buttonColor
             .getAttribute("class")
             .contains("text-danger"));
-    }
-
-    @Then("I check the dynamic page button with text {string} is displayed")
-    public void iCheckTheDynamicPageButtonWithTextIsDisplayed(String displayButtonName) {
-        WebElement buttonVisible = driver.findElement(
-            By.xpath("//button[text()='" + displayButtonName + "']"));
-
-        assertEquals("button", buttonVisible.getAttribute("type"));
-        assertNotNull(buttonVisible);
-    }
-
-    @Then("I take a dynamic properties page screenshot with fileName {string}")
-    public void iTakeADynamicPropertiesPageScreenshotWithFileName(String fileName) {
-        TestUtils.TakeScreenshot(driver, scenario, fileName);
-    }
-
-    @And("I quit the Dynamic Properties webpage")
-    public void iCloseTheDynamicPropertiesWebpage() {
-        driver.quit();
     }
 }

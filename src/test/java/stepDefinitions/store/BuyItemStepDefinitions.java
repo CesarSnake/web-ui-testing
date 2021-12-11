@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import stepDefinitions.utils.TestHelper;
+import stepDefinitions.utils.TestUtils;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ public class BuyItemStepDefinitions {
 
     @Before("@BuyItem")
     public void before(Scenario scenario) {
-        TestHelper.SetScenario(scenario);
-        TestHelper.InitializeAndSetWebDriver();
+        TestUtils.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
     }
 
     @When("I click the button {string}")
     public void iClickTheButton(String buttonId) {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.id(buttonId))
             .click();
@@ -30,7 +30,7 @@ public class BuyItemStepDefinitions {
 
     @Then("I check the cart list contains the items:")
     public void iCheckTheCartListContainsTheItems(List<List<String>> itemsInfo) {
-        WebElement cartList = TestHelper.GetWebDriver()
+        WebElement cartList = TestUtils.GetWebDriver()
             .findElement(
                 By.className("cart_list"));
 
@@ -73,7 +73,7 @@ public class BuyItemStepDefinitions {
 
     @Then("I check the page displays the element {string} with text {string}")
     public void iCheckThePageDisplaysTheElementWithText(String elementClass, String textDisplayed) {
-        WebElement element = TestHelper.GetWebDriver()
+        WebElement element = TestUtils.GetWebDriver()
             .findElement(
                 By.className(elementClass));
 
@@ -82,7 +82,7 @@ public class BuyItemStepDefinitions {
 
     @Then("I check the page displays the image {string} with size width {string} and size height {string}")
     public void iCheckThePageDisplaysTheImageWithSizeWidthAndSizeHeight(String imageSrc, String width, String height) {
-        WebElement checkoutContainer = TestHelper.GetWebDriver()
+        WebElement checkoutContainer = TestUtils.GetWebDriver()
             .findElement(
                 By.id("checkout_complete_container"));
 

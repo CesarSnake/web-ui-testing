@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import stepDefinitions.utils.TestHelper;
+import stepDefinitions.utils.TestUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +18,8 @@ public class AddToCartStepDefinitions {
 
     @Before("@AddToCart")
     public void before(Scenario scenario) {
-        TestHelper.SetScenario(scenario);
-        TestHelper.InitializeAndSetWebDriver();
+        TestUtils.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
     }
 
     @When("I click the button {string} of the item {string}")
@@ -39,7 +39,7 @@ public class AddToCartStepDefinitions {
 
     @Then("I check the shopping cart displays a badge with value {string}")
     public void iCheckTheShoppingCartDisplaysABadgeWithValue(String number) {
-        WebElement cartBadge = TestHelper.GetWebDriver()
+        WebElement cartBadge = TestUtils.GetWebDriver()
             .findElement(
                 By.className("shopping_cart_badge"));
 
@@ -48,7 +48,7 @@ public class AddToCartStepDefinitions {
 
     @When("I click the cart button")
     public void iClickTheCartButton() {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.className("shopping_cart_link"))
             .click();
@@ -56,7 +56,7 @@ public class AddToCartStepDefinitions {
 
     @Then("I check the cart page displays the items:")
     public void iCheckTheCartPageDisplaysTheItems(List<String> cartItems) {
-        List<WebElement> items = TestHelper.GetWebDriver()
+        List<WebElement> items = TestUtils.GetWebDriver()
             .findElements(
                 By.className("inventory_item_name"));
 
@@ -73,7 +73,7 @@ public class AddToCartStepDefinitions {
 
     @When("I click on the item {string} to see the item page")
     public void iClickOnTheItemToSeeTheItemPage(String itemDisplayText) {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.xpath("//a/div[text()='" + itemDisplayText + "']"))
             .click();
@@ -81,7 +81,7 @@ public class AddToCartStepDefinitions {
 
     @Then("I check the web page is the item {string}")
     public void iCheckTheWebPageIsTheItem(String itemDisplayText) {
-        WebElement item = TestHelper.GetWebDriver()
+        WebElement item = TestUtils.GetWebDriver()
             .findElement(
                 By.className("inventory_details_name"));
 
@@ -90,7 +90,7 @@ public class AddToCartStepDefinitions {
 
     @When("I click the button {string} in the item page")
     public void iClickTheButtonInTheItemPage(String buttonText) {
-        WebElement descContainerElement = TestHelper.GetWebDriver()
+        WebElement descContainerElement = TestUtils.GetWebDriver()
             .findElement(
                 By.className("inventory_details_desc_container"));
 
@@ -103,7 +103,7 @@ public class AddToCartStepDefinitions {
 
     @Then("I check the button in the item page has changed to {string}")
     public void iCheckTheButtonInTheItemPageHasChangedTo(String buttonText) {
-        WebElement descContainerElement = TestHelper.GetWebDriver()
+        WebElement descContainerElement = TestUtils.GetWebDriver()
             .findElement(
                 By.className("inventory_details_desc_container"));
 
@@ -115,14 +115,14 @@ public class AddToCartStepDefinitions {
 
     @And("I get back to the inventory page clicking the button {string}")
     public void iGetBackToTheInventoryPageClickingTheButton(String buttonText) {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.xpath("//button[text()='" + buttonText + "']"))
             .click();
     }
 
     private WebElement GetButtonOfTheItem(String itemDisplayText) {
-        List<WebElement> itemsElements = TestHelper.GetWebDriver()
+        List<WebElement> itemsElements = TestUtils.GetWebDriver()
                 .findElements(
                         By.className("inventory_item_description"));
 

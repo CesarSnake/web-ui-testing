@@ -7,7 +7,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import stepDefinitions.utils.TestHelper;
+import stepDefinitions.utils.TestUtils;
 
 import java.util.List;
 
@@ -17,23 +17,23 @@ public class SortInventoryStepDefinitions {
 
     @Before("@SortStoreInventory")
     public void before(Scenario scenario) {
-        TestHelper.InitializeAndSetWebDriver();
-        TestHelper.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
+        TestUtils.SetScenario(scenario);
     }
 
     @Then("I login in the store webpage")
     public void iLoginInTheStoreWebpage() {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.id("user-name"))
             .sendKeys("standard_user");
 
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.id("password"))
             .sendKeys("secret_sauce");
 
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.id("login-button"))
             .click();
@@ -41,7 +41,7 @@ public class SortInventoryStepDefinitions {
 
     @When("I change the sort select to option {string}")
     public void iChangeTheSortSelectToOption(String displayText) {
-        WebElement selectElement = TestHelper.GetWebDriver()
+        WebElement selectElement = TestUtils.GetWebDriver()
             .findElement(
                 By.xpath("//select[@data-test='product_sort_container']"));
 
@@ -51,7 +51,7 @@ public class SortInventoryStepDefinitions {
 
     @Then("I check the order of the inventory is:")
     public void iCheckTheOrderOfTheInventoryIs(List<String> elements) {
-        WebElement inventoryContainerElement = TestHelper.GetWebDriver()
+        WebElement inventoryContainerElement = TestUtils.GetWebDriver()
             .findElement(
                 By.id("inventory_container"));
 

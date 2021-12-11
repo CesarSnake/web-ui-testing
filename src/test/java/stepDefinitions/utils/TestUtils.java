@@ -14,15 +14,55 @@ import java.util.concurrent.TimeUnit;
 
 public class TestUtils {
     private static boolean isChromeDriverInstalled = false;
-    private static WebDriver savedWebDriver = null;
+    private static WebDriver webDriver = null;
+    private static Scenario scenario = null;
 
-    public static ChromeDriver GetChromeDriver() {
+    // TestUtils is a static class, default constructor it is not needed
+    private TestUtils () {}
+
+    // Helper methods to share the scenario and the webDriver between StepDefinitions
+    public static void InitializeAndSetWebDriver() {
+        webDriver = GetChromeDriver();
+    }
+
+    public static void InitializeAndSetWebDriver(String downloadDirectoryPath) {
+        webDriver = GetChromeDriver(downloadDirectoryPath);
+    }
+
+    public static WebDriver GetWebDriver() {
+        return webDriver;
+    }
+
+    public static void SetScenario(Scenario sc) {
+        scenario = sc;
+    }
+
+    public static Scenario Scenario() {
+        return scenario;
+    }
+
+    public static void TakeScreenshot(String fileName) {
+        byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", fileName);
+    }
+
+    public static void Wait(String seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(Integer.parseInt(seconds));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    // End Helper methods
+
+    // Chrome webDriver
+    private static ChromeDriver GetChromeDriver() {
         InstallChromeDriver();
 
         return new ChromeDriver(GetChromeOptions());
     }
 
-    public static ChromeDriver GetChromeDriver(String downloadDirectoryPath) {
+    private static ChromeDriver GetChromeDriver(String downloadDirectoryPath) {
         InstallChromeDriver();
 
         // it uses the chrome driver with a custom download directory path provided
@@ -34,32 +74,6 @@ public class TestUtils {
         options.setExperimentalOption("prefs", prefs);
 
         return new ChromeDriver(options);
-    }
-
-    public static void TakeScreenshot(WebDriver driver, Scenario scenario, String fileName) {
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", fileName);
-    }
-
-    public static void Wait(String seconds) {
-        try {
-            TimeUnit.SECONDS.sleep(Integer.parseInt(seconds));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // SavedWebDriver
-    public static void SaveWebDriver(WebDriver webDriver) {
-        savedWebDriver = webDriver;
-    }
-
-    public static WebDriver GetSavedWebDriver() {
-        if (savedWebDriver == null) {
-            throw new NullPointerException("The web driver was not saving previously using the method 'SaveWebDriver'");
-        }
-
-        return savedWebDriver;
     }
 
     private static ChromeOptions GetChromeOptions() {
@@ -84,4 +98,5 @@ public class TestUtils {
         WebDriverManager.chromedriver().setup();
         isChromeDriverInstalled = true;
     }
+    // End chrome web driver
 }

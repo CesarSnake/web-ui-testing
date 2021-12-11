@@ -9,7 +9,6 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import stepDefinitions.utils.TestHelper;
 import stepDefinitions.utils.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,19 +17,19 @@ public class LoginStepDefinitions {
 
     @Before("@Login")
     public void before(Scenario scenario) {
-        TestHelper.InitializeAndSetWebDriver();
-        TestHelper.SetScenario(scenario);
+        TestUtils.InitializeAndSetWebDriver();
+        TestUtils.SetScenario(scenario);
     }
 
     @Given("I go to the store webpage")
     public void iGoToTheStoreWebpage() {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .get("https://www.saucedemo.com/");
     }
 
     @Then("I check the input {string} is empty")
     public void iCheckTheInputIsEmpty(String inputId) {
-        WebElement inputElement = TestHelper.GetWebDriver()
+        WebElement inputElement = TestUtils.GetWebDriver()
             .findElement(
                 By.id(inputId));
 
@@ -39,7 +38,7 @@ public class LoginStepDefinitions {
 
     @Then("I check the error container is empty")
     public void iCheckTheErrorContainerIsEmpty() {
-        WebElement errorContainerElement = TestHelper.GetWebDriver()
+        WebElement errorContainerElement = TestUtils.GetWebDriver()
             .findElement(
                 By.className("error-message-container"));
 
@@ -56,7 +55,7 @@ public class LoginStepDefinitions {
 
     @When("I click the login button")
     public void iClickTheLoginButton() {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .findElement(
                 By.id("login-button"))
             .click();
@@ -64,7 +63,7 @@ public class LoginStepDefinitions {
 
     @Then("I check the input {string} is displayed as error")
     public void iCheckTheInputIsDisplayedAsError(String inputId) {
-        WebElement inputElement = TestHelper.GetWebDriver()
+        WebElement inputElement = TestUtils.GetWebDriver()
             .findElement(
                 By.id(inputId));
 
@@ -75,7 +74,7 @@ public class LoginStepDefinitions {
 
     @Then("I check the error container displays the message: {string}")
     public void iCheckTheErrorContainerDisplaysTheMessage(String message) {
-        WebElement errorContainerElement = TestHelper.GetWebDriver()
+        WebElement errorContainerElement = TestUtils.GetWebDriver()
             .findElement(
                 By.className("error-message-container"));
 
@@ -87,7 +86,7 @@ public class LoginStepDefinitions {
 
     @Then("I fill the input {string} with the value {string}")
     public void iFillTheInputWithTheValue(String inputId, String value) {
-        WebElement inputElement = TestHelper.GetWebDriver()
+        WebElement inputElement = TestUtils.GetWebDriver()
             .findElement(
                 By.id(inputId));
 
@@ -97,17 +96,17 @@ public class LoginStepDefinitions {
 
     @Then("I check the webpage has changed to {string}")
     public void iCheckTheWebpageHasChangedTo(String webpage) {
-        assertEquals(webpage, TestHelper.GetWebDriver().getCurrentUrl());
+        assertEquals(webpage, TestUtils.GetWebDriver().getCurrentUrl());
     }
 
     @And("I take a screenshot with filename {string}")
     public void iTakeAScreenshotWithFilename(String fileName) {
-        TestUtils.TakeScreenshot(TestHelper.GetWebDriver(), TestHelper.Scenario(), fileName);
+        TestUtils.TakeScreenshot(fileName);
     }
 
     @And("I close the store webpage")
     public void iCloseTheStoreWebpage() {
-        TestHelper.GetWebDriver()
+        TestUtils.GetWebDriver()
             .close();
     }
 }
