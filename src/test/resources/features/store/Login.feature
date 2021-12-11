@@ -5,7 +5,7 @@ Feature: Login to the book store
     Given I go to the store webpage
     Then I check the input "user-name" is empty
     Then I check the input "password" is empty
-    Then I check the login error container is empty
+    Then I check the error container is empty
     When I click the login button
     Then I check the input "user-name" is displayed as error
     Then I check the input "password" is displayed as error
@@ -17,7 +17,7 @@ Feature: Login to the book store
     Given I go to the store webpage
     Then I check the input "user-name" is empty
     Then I check the input "password" is empty
-    Then I check the login error container is empty
+    Then I check the error container is empty
     Then I fill the input "user-name" with the value "standard_user"
     Then I fill the input "password" with the value "bad_password"
     When I click the login button
@@ -31,7 +31,7 @@ Feature: Login to the book store
     Given I go to the store webpage
     Then I check the input "user-name" is empty
     Then I check the input "password" is empty
-    Then I check the login error container is empty
+    Then I check the error container is empty
     Then I fill the input "user-name" with the value "locked_out_user"
     Then I fill the input "password" with the value "secret_sauce"
     When I click the login button
@@ -45,7 +45,7 @@ Feature: Login to the book store
     Given I go to the store webpage
     Then I check the input "user-name" is empty
     Then I check the input "password" is empty
-    Then I check the login error container is empty
+    Then I check the error container is empty
     Then I fill the input "user-name" with the value "standard_user"
     Then I fill the input "password" with the value "secret_sauce"
     When I click the login button

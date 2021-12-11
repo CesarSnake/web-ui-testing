@@ -37,8 +37,8 @@ public class LoginStepDefinitions {
         assertEquals("", inputElement.getText());
     }
 
-    @Then("I check the login error container is empty")
-    public void iCheckTheLoginErrorContainerIsEmpty() {
+    @Then("I check the error container is empty")
+    public void iCheckTheErrorContainerIsEmpty() {
         WebElement errorContainerElement = TestHelper.GetWebDriver()
             .findElement(
                 By.className("error-message-container"));
