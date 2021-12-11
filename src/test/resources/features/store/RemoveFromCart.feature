@@ -2,64 +2,72 @@
 Feature: Remove items from cart
 
   Scenario: Remove items from the inventory page
-    Given I go to the store webpage to remove items from the cart
-    Then I login to the store webpage to remove items from the cart
-    Then I add to the cart the item "Sauce Labs Onesie"
-    Then I add to the cart the item "Test.allTheThings() T-Shirt (Red)"
-    Then I check the remove shopping cart icon displays a badge with value "2"
-    And I take a remove screenshot with filename "removeStart"
-    When I click the shopping cart button to see the items
-    Then I check the shopping cart page displays the items:
+    Given I go to the store webpage
+    Then I login in the store webpage
+    Then I click the button "ADD TO CART" of the item "Sauce Labs Onesie"
+    Then I click the button "ADD TO CART" of the item "Test.allTheThings() T-Shirt (Red)"
+    Then I check the shopping cart displays a badge with value "2"
+    And I take a screenshot with filename "removeStart"
+    When I click the cart button
+    Then I check the cart page displays the items:
       | Sauce Labs Onesie                 |
       | Test.allTheThings() T-Shirt (Red) |
-    And I take a remove screenshot with filename "itemsOnCart"
-    And I get back to the inventory page
-    When I click the remove button from the item "Sauce Labs Onesie"
-    Then I check the remove shopping cart icon displays a badge with value "1"
-    And I take a remove screenshot with filename "removeItem1"
-    When I click the remove button from the item "Test.allTheThings() T-Shirt (Red)"
-    Then I check the remove shopping cart icon does not display a badge
-    And I take a remove screenshot with filename "removeItem2"
-    And I quit the store webpage to remove items from the cart
+    And I take a screenshot with filename "itemsOnCart"
+    And I get back to the inventory page clicking the button "Continue Shopping"
+    When I click the button "REMOVE" of the item "Sauce Labs Onesie"
+    Then I check the button of the item "Sauce Labs Onesie" has changed to "ADD TO CART"
+    Then I check the shopping cart displays a badge with value "1"
+    And I take a screenshot with filename "removeItem1"
+    When I click the button "REMOVE" of the item "Test.allTheThings() T-Shirt (Red)"
+    Then I check the button of the item "Test.allTheThings() T-Shirt (Red)" has changed to "ADD TO CART"
+    Then I check the cart icon does not display a badge
+    And I take a screenshot with filename "removeItem2"
+    And I close the store webpage
 
   Scenario: Remove items from the item page
-    Given I go to the store webpage to remove items from the cart
-    Then I login to the store webpage to remove items from the cart
-    Then I add to the cart the item "Sauce Labs Bolt T-Shirt"
-    Then I add to the cart the item "Sauce Labs Backpack"
-    Then I check the remove shopping cart icon displays a badge with value "2"
-    And I take a remove screenshot with filename "removeStart"
-    When I click the shopping cart button to see the items
-    Then I check the shopping cart page displays the items:
+    Given I go to the store webpage
+    Then I login in the store webpage
+    Then I click the button "ADD TO CART" of the item "Sauce Labs Bolt T-Shirt"
+    Then I click the button "ADD TO CART" of the item "Sauce Labs Backpack"
+    Then I check the shopping cart displays a badge with value "2"
+    And I take a screenshot with filename "removeStart"
+    When I click the cart button
+    Then I check the cart page displays the items:
       | Sauce Labs Bolt T-Shirt |
       | Sauce Labs Backpack     |
-    Then I go the item page "Sauce Labs Bolt T-Shirt"
-    When I remove the item from the shopping cart
-    Then I check the remove shopping cart icon displays a badge with value "1"
-    And I take a remove screenshot with filename "removeItem1"
-    When I go to the item page "Sauce Labs Backpak"
-    When I remove the item from the shopping cart
-    Then I check the remove shopping cart icon does not display a badge
-    And I take a remove screenshot with filename "removeItem2"
-    And I quit the store webpage to remove items from the cart
+    Then I click on the item "Sauce Labs Bolt T-Shirt" to see the item page
+    When I click the button "REMOVE" in the item page
+    Then I check the button in the item page has changed to "ADD TO CART"
+    Then I check the shopping cart displays a badge with value "1"
+    And I take a screenshot with filename "removeItem1"
+    And I get back to the inventory page clicking the button "Back to products"
+    When I click on the item "Sauce Labs Backpack" to see the item page
+    When I click the button "REMOVE" in the item page
+    Then I check the button in the item page has changed to "ADD TO CART"
+    Then I check the cart icon does not display a badge
+    And I take a screenshot with filename "removeItem2"
+    And I close the store webpage
 
   Scenario: Remove items from the inventory and from the item page
-    Given I go to the store webpage to remove items from the cart
-    Then I login to the store webpage to remove items from the cart
-    Then I add to the cart the item "Sauce Labs Bike Light"
-    Then I add to the cart the item "Sauce Labs Fleece Jacket"
-    Then I check the remove shopping cart icon displays a badge with value "2"
-    And I take a remove screenshot with filename "removeStart"
-    When I click the shopping cart button to see the items
-    Then I check the shopping cart page displays the items:
+    Given I go to the store webpage
+    Then I login in the store webpage
+    Then I click the button "ADD TO CART" of the item "Sauce Labs Bike Light"
+    Then I click the button "ADD TO CART" of the item "Sauce Labs Fleece Jacket"
+    Then I check the shopping cart displays a badge with value "2"
+    And I take a screenshot with filename "removeStart"
+    When I click the cart button
+    Then I check the cart page displays the items:
       | Sauce Labs Bike Light    |
       | Sauce Labs Fleece Jacket |
-    And I get back to the inventory page
-    When I click the remove button from the item "Sauce Labs Bike Light"
-    Then I check the remove shopping cart icon displays a badge with value "1"
-    And I take a remove screenshot with filename "removeItem1"
-    When I go to the item page "Sauce Labs Fleece Jacket"
-    When I remove the item from the shopping cart
-    Then I check the remove shopping cart icon does not display a badge
-    And I take a remove screenshot with filename "removeItem2"
-    And I quit the store webpage to remove items from the cart
+    And I get back to the inventory page clicking the button "Continue Shopping"
+    When I click the button "REMOVE" of the item "Sauce Labs Bike Light"
+    Then I check the button of the item "Sauce Labs Bike Light" has changed to "ADD TO CART"
+    Then I check the shopping cart displays a badge with value "1"
+    And I take a screenshot with filename "removeItem1"
+    When I click on the item "Sauce Labs Fleece Jacket" to see the item page
+    Then I check the web page is the item "Sauce Labs Fleece Jacket"
+    When I click the button "REMOVE" in the item page
+    Then I check the button in the item page has changed to "ADD TO CART"
+    Then I check the cart icon does not display a badge
+    And I take a screenshot with filename "removeItem2"
+    And I close the store webpage
