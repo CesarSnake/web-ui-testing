@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AddToCartFeature {
+public class AddToCartStepDefinitions {
 
     @Before("@AddToCart")
     public void before(Scenario scenario) {

@@ -32,7 +32,7 @@ public class WebTableStepDefinitions {
     }
 
     @Then("I check web table contains the elements:")
-    public void iCheckWebTableContainsTheElements( List<List<String>> rowsExpected) {
+    public void iCheckWebTableContainsTheElements(List<List<String>> rowsExpected) {
         // Get the webTable
         WebElement tableElement = driver.findElement(
             By.className("rt-tbody"));
