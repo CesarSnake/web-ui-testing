@@ -9,9 +9,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  CUCUMBER_PUBLISH_TOKEN: 912092bb-4737-458e-b8c9-cf9f815a3543
-
 jobs:
   build:
 
@@ -31,3 +28,5 @@ jobs:
 
     - name: Test with Maven
       run: mvn -B test --file pom.xml
+      env:
+        CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
